@@ -38,40 +38,40 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Deep warm charcoal / near-black foundation */
-  --background: oklch(0.16 0.006 60);
-  --foreground: oklch(0.93 0.01 85);
+  /* Warm ivory foundation — premium, gallery-like, not stark white */
+  --background: oklch(0.965 0.012 85);
+  --foreground: oklch(0.22 0.02 50);
 
-  --card: oklch(0.2 0.007 60);
-  --card-foreground: oklch(0.93 0.01 85);
-  --popover: oklch(0.18 0.007 60);
-  --popover-foreground: oklch(0.93 0.01 85);
+  --card: oklch(0.985 0.008 85);
+  --card-foreground: oklch(0.22 0.02 50);
+  --popover: oklch(0.985 0.008 85);
+  --popover-foreground: oklch(0.22 0.02 50);
 
-  /* Warm gold as the primary brand accent */
-  --primary: oklch(0.78 0.1 82);
-  --primary-foreground: oklch(0.16 0.006 60);
+  /* Deep bronze-gold as the primary brand accent — reads clearly on light backgrounds */
+  --primary: oklch(0.55 0.11 70);
+  --primary-foreground: oklch(0.98 0.01 85);
 
-  --secondary: oklch(0.24 0.008 60);
-  --secondary-foreground: oklch(0.93 0.01 85);
+  --secondary: oklch(0.91 0.015 80);
+  --secondary-foreground: oklch(0.22 0.02 50);
 
-  --muted: oklch(0.24 0.008 60);
-  --muted-foreground: oklch(0.66 0.012 78);
+  --muted: oklch(0.91 0.015 80);
+  --muted-foreground: oklch(0.45 0.02 60);
 
-  --accent: oklch(0.24 0.008 60);
-  --accent-foreground: oklch(0.93 0.01 85);
+  --accent: oklch(0.91 0.015 80);
+  --accent-foreground: oklch(0.22 0.02 50);
 
-  --destructive: oklch(0.62 0.2 25);
+  --destructive: oklch(0.55 0.19 25);
 
-  --border: oklch(0.32 0.008 70 / 55%);
-  --input: oklch(0.32 0.008 70 / 55%);
-  --ring: oklch(0.78 0.1 82);
+  --border: oklch(0.55 0.02 75 / 25%);
+  --input: oklch(0.55 0.02 75 / 25%);
+  --ring: oklch(0.55 0.11 70);
 
   /* Bespoke metal accents */
-  --gold: oklch(0.78 0.1 82);
-  --champagne: oklch(0.88 0.05 88);
-  --silver: oklch(0.78 0.006 250);
+  --gold: oklch(0.55 0.11 70);
+  --champagne: oklch(0.62 0.1 65);
+  --silver: oklch(0.58 0.008 250);
 
   --radius: 0.25rem;
 }
