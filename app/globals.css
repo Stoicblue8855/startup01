@@ -42,25 +42,25 @@
 
   /* Warm ivory foundation — premium, gallery-like, not stark white */
   --background: oklch(0.965 0.012 85);
-  --foreground: oklch(0.22 0.02 50);
+  --foreground: oklch(0.14 0.02 45);
 
   --card: oklch(0.985 0.008 85);
-  --card-foreground: oklch(0.22 0.02 50);
+  --card-foreground: oklch(0.14 0.02 45);
   --popover: oklch(0.985 0.008 85);
-  --popover-foreground: oklch(0.22 0.02 50);
+  --popover-foreground: oklch(0.14 0.02 45);
 
   /* Deep bronze-gold as the primary brand accent — reads clearly on light backgrounds */
   --primary: oklch(0.55 0.11 70);
   --primary-foreground: oklch(0.98 0.01 85);
 
   --secondary: oklch(0.91 0.015 80);
-  --secondary-foreground: oklch(0.22 0.02 50);
+  --secondary-foreground: oklch(0.14 0.02 45);
 
   --muted: oklch(0.91 0.015 80);
-  --muted-foreground: oklch(0.45 0.02 60);
+  --muted-foreground: oklch(0.33 0.02 55);
 
   --accent: oklch(0.91 0.015 80);
-  --accent-foreground: oklch(0.22 0.02 50);
+  --accent-foreground: oklch(0.14 0.02 45);
 
   --destructive: oklch(0.55 0.19 25);
 

@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import type { Collection } from '@/lib/types'
 import { Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
+import { Float } from '@/components/motion/float'
 
 export function FeaturedCollections({ collections }: { collections: Collection[] }) {
   const scroller = useRef<HTMLDivElement>(null)
@@ -62,13 +63,15 @@ export function FeaturedCollections({ collections }: { collections: Collection[]
           >
             <Link href={`/shop?collection=${c.slug}`} className="group block">
               <div className="relative aspect-[3/4] overflow-hidden bg-secondary">
-                <Image
-                  src={c.image || '/placeholder.svg'}
-                  alt={c.imageAlt}
-                  fill
-                  sizes="(max-width: 640px) 78vw, (max-width: 1024px) 52vw, 32vw"
-                  className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
-                />
+                <Float distance={10} duration={6} className="relative size-full">
+                  <Image
+                    src={c.image || '/placeholder.svg'}
+                    alt={c.imageAlt}
+                    fill
+                    sizes="(max-width: 640px) 78vw, (max-width: 1024px) 52vw, 32vw"
+                    className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                  />
+                </Float>
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-7">
                   <p className="text-xs uppercase tracking-wide-luxe text-gold">{c.tagline}</p>

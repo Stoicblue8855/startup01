@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
 import type { HeroSection } from '@/lib/types'
 import { LuxButton } from '@/components/brand/lux-button'
+import { Float } from '@/components/motion/float'
 
 const easing = [0.22, 1, 0.36, 1] as const
 
@@ -47,6 +48,13 @@ export function Hero({ hero }: { hero: HeroSection }) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
       </motion.div>
+
+      <div className="pointer-events-none absolute inset-0 z-[5] hidden md:block" aria-hidden="true">
+        <Float distance={22} duration={7} delay={0} className="absolute left-[12%] top-[22%] size-2 rounded-full bg-gold/60" />
+        <Float distance={16} duration={5.5} delay={0.6} className="absolute left-[22%] top-[62%] size-1.5 rounded-full bg-gold/40" />
+        <Float distance={26} duration={8} delay={1.2} className="absolute right-[16%] top-[30%] size-2.5 rounded-full bg-gold/50" />
+        <Float distance={18} duration={6.5} delay={0.3} className="absolute right-[26%] top-[68%] size-1.5 rounded-full bg-gold/30" />
+      </div>
 
       <motion.div
         style={{ opacity }}

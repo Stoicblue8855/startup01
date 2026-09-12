@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import type { Product } from '@/lib/types'
 import { formatPrice } from '@/lib/format'
 import { LuxButton } from '@/components/brand/lux-button'
+import { Float } from '@/components/motion/float'
 
 /** Scroll-driven flagship feature. The watch scales and drifts as it enters. */
 export function SignatureSpotlight({ product }: { product: Product }) {
@@ -31,13 +32,15 @@ export function SignatureSpotlight({ product }: { product: Product }) {
 
       <div className="relative mx-auto grid w-full max-w-[1400px] items-center gap-10 px-5 md:px-10 lg:grid-cols-2">
         <motion.div style={{ scale, y: imageY }} className="relative mx-auto aspect-square w-full max-w-xl">
-          <Image
-            src={product.image || '/placeholder.svg'}
-            alt={product.imageAlt}
-            fill
-            sizes="(max-width: 1024px) 90vw, 45vw"
-            className="object-contain"
-          />
+          <Float distance={16} duration={6} className="relative size-full">
+            <Image
+              src={product.image || '/placeholder.svg'}
+              alt={product.imageAlt}
+              fill
+              sizes="(max-width: 1024px) 90vw, 45vw"
+              className="object-contain"
+            />
+          </Float>
         </motion.div>
 
         <motion.div style={{ y: textY }} className="relative">
