@@ -7,7 +7,7 @@ import type {
   SiteSettings,
   Testimonial,
 } from './types'
-// import { getSupabaseClient } from "./supabase" // SUPABASE: uncomment when live
+import { getSupabaseClient } from './supabase'
 
 /**
  * Non-product editorial content. Same pattern as `lib/products.ts`: typed
@@ -284,42 +284,118 @@ export const journalPosts: JournalPost[] = [
 
 /* ----------------------------- Getter functions ----------------------------- */
 
+function mapJournalPost(row: any): JournalPost {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    category: row.category,
+    author: row.author,
+    date: row.date,
+    readTime: row.read_time,
+    image: row.image,
+    imageAlt: row.image_alt,
+    body: row.body ?? [],
+  }
+}
+
 export async function getSiteSettings(): Promise<SiteSettings> {
-  // SUPABASE: return (await getSupabaseClient()!.from("site_settings").select("*").single()).data!
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('site_settings').select('*').eq('id', 1).single()
+    if (data) {
+      return {
+        brandName: data.brand_name,
+        tagline: data.tagline,
+        email: data.email,
+        phone: data.phone,
+        socials: data.socials ?? [],
+        currencies: data.currencies ?? [],
+        languages: data.languages ?? [],
+        footer: data.footer ?? [],
+      }
+    }
+  }
   return siteSettings
 }
 
 export async function getHeroContent(): Promise<HeroSection> {
-  // SUPABASE: return (await getSupabaseClient()!.from("hero_sections").select("*").eq("id", "hero-home").single()).data!
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('hero_sections').select('*').eq('id', 'hero-home').single()
+    if (data) {
+      return {
+        id: data.id,
+        eyebrow: data.eyebrow,
+        headline: data.headline,
+        subheadline: data.subheadline,
+        ctaLabel: data.cta_label,
+        ctaHref: data.cta_href,
+        secondaryCtaLabel: data.secondary_cta_label,
+        secondaryCtaHref: data.secondary_cta_href,
+        video: data.video,
+        poster: data.poster,
+        posterAlt: data.poster_alt,
+      }
+    }
+  }
   return heroSection
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("testimonials").select("*")).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('testimonials').select('*')
+    if (data) return data as Testimonial[]
+  }
   return testimonials
 }
 
 export async function getPressMentions(): Promise<PressMention[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("press_mentions").select("*")).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('press_mentions').select('*')
+    if (data) return data as PressMention[]
+  }
   return pressMentions
 }
 
 export async function getBoutiques(): Promise<Boutique[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("boutiques").select("*")).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('boutiques').select('*')
+    if (data) return data as Boutique[]
+  }
   return boutiques
 }
 
 export async function getMilestones(): Promise<Milestone[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("pages").select("milestones").eq("slug","about").single()).data?.milestones ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase
+      .from('milestones')
+      .select('year, title, description')
+      .order('sort_order', { ascending: true })
+    if (data) return data as Milestone[]
+  }
   return milestones
 }
 
 export async function getJournalPosts(): Promise<JournalPost[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("journal_posts").select("*").order("date", { ascending: false })).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('journal_posts').select('*').order('date', { ascending: false })
+    if (data) return data.map(mapJournalPost)
+  }
   return journalPosts
 }
 
 export async function getJournalPostBySlug(slug: string): Promise<JournalPost | undefined> {
-  // SUPABASE: return (await getSupabaseClient()!.from("journal_posts").select("*").eq("slug", slug).single()).data ?? undefined
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('journal_posts').select('*').eq('slug', slug).single()
+    if (data) return mapJournalPost(data)
+  }
   return journalPosts.find((p) => p.slug === slug)
 }

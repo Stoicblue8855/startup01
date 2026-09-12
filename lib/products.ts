@@ -1,5 +1,5 @@
 import type { Collection, Material, Product } from './types'
-// import { getSupabaseClient } from "./supabase" // SUPABASE: uncomment when live
+import { getSupabaseClient } from './supabase'
 
 /**
  * All product & collection content lives here as typed, exported arrays.
@@ -294,45 +294,112 @@ export const materials: Material[] = [
 /* ----------------------------- Getter functions ----------------------------- */
 /* Each mirrors a future Supabase query. Swap the body, keep the signature. */
 
+function mapProduct(row: any): Product {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    collectionSlug: row.collection_slug,
+    reference: row.reference,
+    price: Number(row.price),
+    currency: row.currency,
+    gender: row.gender,
+    material: row.material,
+    shortDescription: row.short_description,
+    description: row.description,
+    image: row.image,
+    imageAlt: row.image_alt,
+    hoverImage: row.hover_image,
+    gallery: row.gallery ?? [],
+    straps: row.straps ?? [],
+    sizes: row.sizes ?? [],
+    specs: row.specs ?? [],
+    featured: row.featured,
+    new: row.is_new,
+  }
+}
+
+function mapCollection(row: any): Collection {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    tagline: row.tagline,
+    description: row.description,
+    image: row.image,
+    imageAlt: row.image_alt,
+  }
+}
+
 export async function getCollections(): Promise<Collection[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("collections").select("*")).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('collections').select('*')
+    if (data) return data.map(mapCollection)
+  }
   return collections
 }
 
 export async function getCollectionBySlug(slug: string): Promise<Collection | undefined> {
-  // SUPABASE: return (await getSupabaseClient()!.from("collections").select("*").eq("slug", slug).single()).data ?? undefined
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('collections').select('*').eq('slug', slug).single()
+    if (data) return mapCollection(data)
+  }
   return collections.find((c) => c.slug === slug)
 }
 
 export async function getProducts(): Promise<Product[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("products").select("*")).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('products').select('*')
+    if (data) return data.map(mapProduct)
+  }
   return products
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("products").select("*").eq("featured", true)).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('products').select('*').eq('featured', true)
+    if (data) return data.map(mapProduct)
+  }
   return products.filter((p) => p.featured)
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
-  // SUPABASE: return (await getSupabaseClient()!.from("products").select("*").eq("slug", slug).single()).data ?? undefined
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('products').select('*').eq('slug', slug).single()
+    if (data) return mapProduct(data)
+  }
   return products.find((p) => p.slug === slug)
 }
 
 export async function getProductsByCollection(slug: string): Promise<Product[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("products").select("*").eq("collection_slug", slug)).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('products').select('*').eq('collection_slug', slug)
+    if (data) return data.map(mapProduct)
+  }
   return products.filter((p) => p.collectionSlug === slug)
 }
 
 export async function getRelatedProducts(slug: string): Promise<Product[]> {
-  const current = products.find((p) => p.slug === slug)
-  if (!current) return products.slice(0, 4)
-  return products.filter((p) => p.slug !== slug && p.collectionSlug === current.collectionSlug)
-    .concat(products.filter((p) => p.slug !== slug && p.collectionSlug !== current.collectionSlug))
+  const all = await getProducts()
+  const current = all.find((p) => p.slug === slug)
+  if (!current) return all.slice(0, 4)
+  return all
+    .filter((p) => p.slug !== slug && p.collectionSlug === current.collectionSlug)
+    .concat(all.filter((p) => p.slug !== slug && p.collectionSlug !== current.collectionSlug))
     .slice(0, 4)
 }
 
 export async function getMaterials(): Promise<Material[]> {
-  // SUPABASE: return (await getSupabaseClient()!.from("materials").select("*")).data ?? []
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data } = await supabase.from('materials').select('*')
+    if (data) return data as Material[]
+  }
   return materials
 }
