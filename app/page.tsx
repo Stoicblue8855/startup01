@@ -18,6 +18,12 @@ import { BrandFilm } from '@/components/home/brand-film'
 import { Materials } from '@/components/home/materials'
 import { NewArrivals } from '@/components/home/new-arrivals'
 import { Testimonials } from '@/components/home/testimonials'
+
+// Re-fetch from Supabase at most once every 60 seconds instead of only at
+// build time, so edits made in the Supabase table editor show up on the
+// live site without needing a manual redeploy.
+export const revalidate = 60
+
 import { BoutiquesPreview } from '@/components/home/boutiques-preview'
 import { NewsletterSection } from '@/components/home/newsletter-section'
 
