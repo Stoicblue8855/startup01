@@ -265,7 +265,6 @@ export const products: Product[] = [
     gallery: [
       { src: '/images/watch-tourbillon.png', alt: 'Grand Tourbillon front view with openworked dial' },
       DETAIL_MOVEMENT,
-      { src: '/images/spotlight.png', alt: 'Grand Tourbillon angled in dramatic golden light' },
     ],
     straps: [{ id: 'alligator-black', name: 'Black alligator' }],
     sizes: ['42mm'],

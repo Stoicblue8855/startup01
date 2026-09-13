@@ -46,11 +46,7 @@ export default async function HomePage() {
       <FeaturedCollections collections={collections} />
       {signature && <SignatureSpotlight product={signature} />}
       <Craftsmanship />
-      <BrandFilm
-        poster="/images/brand-film.png"
-        posterAlt="Master watchmaker's atelier at night with a single illuminated luxury watch"
-        videoSrc="" /* SUPABASE: brand film MP4 URL from Supabase Storage */
-      />
+      <BrandFilm />
       <NewArrivals products={products.slice(0, 4)} />
       <Materials materials={materials} />
       <Testimonials testimonials={testimonials} press={press} />
