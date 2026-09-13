@@ -47,10 +47,8 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          'fixed inset-x-0 top-0 z-[70] transition-all duration-500',
-          solid
-            ? 'border-b border-border bg-background/85 backdrop-blur-md'
-            : 'border-b border-transparent bg-transparent',
+          'fixed inset-x-0 top-0 z-[70] border-b bg-background/75 backdrop-blur-md transition-all duration-500',
+          solid ? 'border-border bg-background/90' : 'border-border/40',
         )}
       >
         <nav className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-5 md:h-20 md:px-10">
