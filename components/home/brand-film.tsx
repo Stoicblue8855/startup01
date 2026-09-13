@@ -71,7 +71,7 @@ export function BrandFilm({
         </motion.div>
       )}
 
-      <div className="absolute inset-0 bg-background/18" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_65%_55%_at_50%_50%,var(--background)_0%,transparent_72%)] opacity-90" />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col items-center justify-center px-5 text-center md:px-10">
         <Reveal>

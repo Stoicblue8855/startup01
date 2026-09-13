@@ -46,7 +46,7 @@ export function Hero({ hero }: { hero: HeroSection }) {
             className="object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/15 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--background)_0%,var(--background)_32%,transparent_65%)]" />
       </motion.div>
 
       <div className="pointer-events-none absolute inset-0 z-[5] hidden md:block" aria-hidden="true">
