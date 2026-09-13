@@ -16,7 +16,7 @@ export function BoutiquesPreview({ boutiques }: { boutiques: Boutique[] }) {
             sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent lg:bg-gradient-to-r" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent lg:bg-gradient-to-r" />
         </div>
 
         <div className="flex flex-col justify-center px-5 py-16 md:px-14 md:py-20">

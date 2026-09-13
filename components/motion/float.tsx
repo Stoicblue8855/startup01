@@ -27,6 +27,7 @@ export function Float({
   return (
     <motion.div
       className={cn(className)}
+      style={{ willChange: 'transform' }}
       animate={{
         y: [0, -distance, 0],
         rotate: rotate ? [0, rotate, 0] : undefined,

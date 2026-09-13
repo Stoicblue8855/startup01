@@ -46,14 +46,12 @@ export function Hero({ hero }: { hero: HeroSection }) {
             className="object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background/15 to-transparent" />
       </motion.div>
 
       <div className="pointer-events-none absolute inset-0 z-[5] hidden md:block" aria-hidden="true">
-        <Float distance={22} duration={7} delay={0} className="absolute left-[12%] top-[22%] size-2 rounded-full bg-gold/60" />
-        <Float distance={16} duration={5.5} delay={0.6} className="absolute left-[22%] top-[62%] size-1.5 rounded-full bg-gold/40" />
-        <Float distance={26} duration={8} delay={1.2} className="absolute right-[16%] top-[30%] size-2.5 rounded-full bg-gold/50" />
-        <Float distance={18} duration={6.5} delay={0.3} className="absolute right-[26%] top-[68%] size-1.5 rounded-full bg-gold/30" />
+        <Float distance={20} duration={7} delay={0} className="absolute left-[14%] top-[24%] size-2 rounded-full bg-gold/50" />
+        <Float distance={24} duration={8} delay={1} className="absolute right-[18%] top-[32%] size-2.5 rounded-full bg-gold/40" />
       </div>
 
       <motion.div

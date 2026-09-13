@@ -71,7 +71,7 @@ export function BrandFilm({
         </motion.div>
       )}
 
-      <div className="absolute inset-0 bg-background/40" />
+      <div className="absolute inset-0 bg-background/18" />
 
       <div className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col items-center justify-center px-5 text-center md:px-10">
         <Reveal>

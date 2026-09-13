@@ -57,7 +57,7 @@
   --secondary-foreground: oklch(0.14 0.02 45);
 
   --muted: oklch(0.91 0.015 80);
-  --muted-foreground: oklch(0.33 0.02 55);
+  --muted-foreground: oklch(0.26 0.02 55);
 
   --accent: oklch(0.91 0.015 80);
   --accent-foreground: oklch(0.14 0.02 45);
@@ -97,6 +97,7 @@
 @layer utilities {
   .font-serif {
     font-family: var(--font-serif);
+    font-weight: 500;
   }
   .text-gold {
     color: var(--gold);
