@@ -37,7 +37,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
       (p) =>
         p.name.toLowerCase().includes(q) ||
         p.material.toLowerCase().includes(q) ||
-        p.collectionSlug.toLowerCase().includes(q) ||
+        (p.collectionSlug ?? '').toLowerCase().includes(q) ||
         p.reference.toLowerCase().includes(q),
     )
   }, [query])

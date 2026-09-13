@@ -34,7 +34,7 @@ export interface Product {
   id: string
   slug: string
   name: string
-  collectionSlug: string
+  collectionSlug: string | null
   reference: string
   price: number
   currency: string
