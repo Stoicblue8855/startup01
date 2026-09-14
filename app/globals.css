@@ -95,6 +95,15 @@
 }
 
 @layer utilities {
+  @keyframes tick-rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-tick-hand {
+    animation: tick-rotate 3s steps(12, end) infinite;
+    transform-origin: 20px 21px;
+  }
   .font-serif {
     font-family: var(--font-serif);
     font-weight: 500;

@@ -24,6 +24,12 @@ export async function generateMetadata({
   return {
     title: product.name,
     description: product.shortDescription,
+    alternates: { canonical: `/product/${product.slug}` },
+    openGraph: {
+      title: `${product.name} · SamayChakkra`,
+      description: product.shortDescription,
+      images: [{ url: product.image, width: 1200, height: 1200, alt: product.imageAlt }],
+    },
   }
 }
 
@@ -36,6 +42,27 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="pt-28 md:pt-36">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Product',
+            name: product.name,
+            image: `https://startup01-six.vercel.app${product.image}`,
+            description: product.shortDescription,
+            sku: product.reference,
+            brand: { '@type': 'Brand', name: 'SamayChakkra' },
+            offers: {
+              '@type': 'Offer',
+              priceCurrency: product.currency,
+              price: product.price,
+              availability: 'https://schema.org/InStock',
+            },
+          }),
+        }}
+      />
       <div className="mx-auto max-w-[1400px] px-5 pb-20 md:px-10 md:pb-28">
         <ProductDetail product={product} />
       </div>

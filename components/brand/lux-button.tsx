@@ -33,7 +33,7 @@ type LinkProps = CommonProps & {
 } & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'>
 
 export function LuxButton(props: ButtonProps | LinkProps) {
-  const { children, variant = 'solid', className, magnetic = true, ...rest } = props
+  const { children, variant = 'solid', className, magnetic = true, href, ...rest } = props
 
   const content = (
     <span className="relative z-10 inline-flex items-center gap-2">{children}</span>
@@ -42,12 +42,12 @@ export function LuxButton(props: ButtonProps | LinkProps) {
   const classes = cn(base, variants[variant], className)
 
   const inner =
-    'href' in props && props.href !== undefined ? (
-      <Link href={props.href} className={classes} {...(rest as LinkProps)}>
+    href !== undefined ? (
+      <Link href={href} className={classes} {...(rest as Omit<LinkProps, 'href' | keyof CommonProps>)}>
         {content}
       </Link>
     ) : (
-      <button className={classes} {...(rest as ButtonProps)}>
+      <button className={classes} {...(rest as Omit<ButtonProps, 'href' | keyof CommonProps>)}>
         {content}
       </button>
     )

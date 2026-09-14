@@ -16,7 +16,7 @@ import { getSupabaseClient } from './supabase'
  */
 
 export const siteSettings: SiteSettings = {
-  brandName: '[BRAND NAME]',
+  brandName: 'SamayChakkra',
   tagline: 'Time, made to be inherited.',
   email: 'concierge@brandname.com',
   phone: '+1 (212) 555-0180',
@@ -72,7 +72,7 @@ export const heroSection: HeroSection = {
   eyebrow: 'Manufacture since 1874',
   headline: 'The measure of a lifetime.',
   subheadline:
-    'For a century and a half, [BRAND NAME] has built watches meant to outlast their owners. Precision without compromise. Beauty without noise.',
+    'For a century and a half, SamayChakkra has built watches meant to outlast their owners. Precision without compromise. Beauty without noise.',
   ctaLabel: 'Explore the collection',
   ctaHref: '/shop',
   secondaryCtaLabel: 'Watch the film',

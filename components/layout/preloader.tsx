@@ -5,8 +5,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { siteSettings } from '@/lib/content'
 
 /**
- * Branded preloader: the watch-crown mark draws in, the wordmark fades up,
- * then the whole curtain lifts to reveal the hero. Shows once per session.
+ * Branded preloader: a clock face draws in, hour/minute hands set
+ * themselves, and a seconds hand visibly ticks (stepped, not a smooth
+ * sweep) for the duration of the load — then the curtain lifts.
+ * Shows once per session.
  */
 export function Preloader() {
   const [visible, setVisible] = useState(false)
@@ -48,20 +50,46 @@ export function Preloader() {
               strokeWidth="1"
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 1.4, ease: 'easeInOut' }}
+              transition={{ duration: 1, ease: 'easeInOut' }}
             />
+            {/* Hour hand — settles into place */}
             <motion.path
-              d="M20 21V13.5M20 21l5 3"
+              d="M20 21V14.5"
               stroke="currentColor"
-              strokeWidth="1"
+              strokeWidth="1.4"
               strokeLinecap="round"
               initial={{ pathLength: 0, opacity: 0 }}
               animate={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 0.9, delay: 1, ease: 'easeInOut' }}
+              transition={{ duration: 0.6, delay: 0.9, ease: 'easeInOut' }}
             />
+            {/* Minute hand — settles into place */}
+            <motion.path
+              d="M20 21l4.2 2.4"
+              stroke="currentColor"
+              strokeWidth="1.1"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.2, ease: 'easeInOut' }}
+            />
+            {/* Seconds hand — ticks continuously, stepped not smooth */}
+            <motion.line
+              x1="20"
+              y1="21"
+              x2="20"
+              y2="9.5"
+              stroke="currentColor"
+              strokeWidth="0.6"
+              strokeLinecap="round"
+              className="animate-tick-hand origin-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.85 }}
+              transition={{ duration: 0.4, delay: 1.5 }}
+            />
+            <circle cx="20" cy="21" r="1.2" fill="currentColor" />
           </svg>
           <motion.span
-            className="mt-6 font-serif text-sm uppercase tracking-luxe text-foreground"
+            className="mt-6 font-sans text-lg font-semibold tracking-tight text-foreground"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.5 }}

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import { siteSettings } from '@/lib/content'
 
-/** Wordmark: a minimal watch-crown emblem beside the [BRAND NAME] wordmark. */
+/** Wordmark: a minimal watch-crown emblem beside the SamayChakkra wordmark. */
 export function Logo({
   className,
   showText = true,
@@ -11,9 +11,9 @@ export function Logo({
 }) {
   return (
     <span className={cn('inline-flex items-center gap-2.5', className)}>
-      <LogoMark className="size-6 text-gold" />
+      <LogoMark className="size-7 text-gold" />
       {showText && (
-        <span className="font-serif text-lg tracking-wide-luxe uppercase">
+        <span className="font-sans text-xl font-semibold tracking-tight text-foreground md:text-2xl">
           {siteSettings.brandName}
         </span>
       )}

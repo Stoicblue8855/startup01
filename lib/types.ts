@@ -1,5 +1,5 @@
 /**
- * Domain types for [BRAND NAME].
+ * Domain types for SamayChakkra.
  *
  * These interfaces intentionally mirror the shape of the future Supabase
  * tables (see column names in comments) so the static data layer can later be
