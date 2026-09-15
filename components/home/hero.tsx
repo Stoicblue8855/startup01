@@ -58,45 +58,47 @@ export function Hero({ hero }: { hero: HeroSection }) {
         style={{ opacity }}
         className="relative z-10 mx-auto flex h-full max-w-[1400px] flex-col justify-end px-5 pb-24 md:px-10 md:pb-32"
       >
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: easing }}
-          className="inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold"
-        >
-          <span className="h-px w-10 bg-gold/60" aria-hidden="true" />
-          {hero.eyebrow}
-        </motion.span>
+        <div className="max-w-2xl rounded-sm bg-background/93 px-5 py-6 backdrop-blur-md sm:px-8 sm:py-8 md:px-10 md:py-10">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: easing }}
+            className="inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold"
+          >
+            <span className="h-px w-10 bg-gold/60" aria-hidden="true" />
+            {hero.eyebrow}
+          </motion.span>
 
-        <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[0.98] text-balance md:text-7xl lg:text-8xl">
-          {words.map((word, i) => (
-            <span key={i} className="mr-[0.25em] inline-block overflow-hidden align-bottom">
-              <motion.span
-                initial={{ y: '110%' }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.9, delay: 0.35 + i * 0.08, ease: easing }}
-                className="inline-block"
-              >
-                {word}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
+          <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[0.98] text-balance md:text-7xl lg:text-7xl">
+            {words.map((word, i) => (
+              <span key={i} className="mr-[0.25em] inline-block overflow-hidden align-bottom">
+                <motion.span
+                  initial={{ y: '110%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.9, delay: 0.35 + i * 0.08, ease: easing }}
+                  className="inline-block"
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.7, ease: easing }}
-          className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
-        >
-          {hero.subheadline}
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.7, ease: easing }}
+            className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
+          >
+            {hero.subheadline}
+          </motion.p>
+        </div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.85, ease: easing }}
-          className="mt-10 flex flex-wrap items-center gap-4"
+          className="mt-6 flex flex-wrap items-center gap-4"
         >
           <LuxButton href={hero.ctaHref} variant="solid">
             {hero.ctaLabel}
