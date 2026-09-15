@@ -62,20 +62,20 @@ export function Hero({ hero }: { hero: HeroSection }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: easing }}
-          className="inline-flex w-fit items-center gap-3 rounded-full bg-background/88 px-4 py-2 text-xs uppercase tracking-luxe text-gold backdrop-blur-sm"
+          className="mb-2 inline-flex w-fit items-center gap-3 rounded-full bg-background/88 px-4 py-2 text-xs uppercase tracking-luxe text-gold backdrop-blur-sm"
         >
           <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
           {hero.eyebrow}
         </motion.span>
 
-        <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-[0.98] text-balance md:text-7xl lg:text-7xl">
+        <h1 className="mt-4 max-w-4xl font-serif text-5xl leading-[1.35] text-balance md:text-7xl md:leading-[1.25] lg:text-7xl">
           {words.map((word, i) => (
-            <span key={i} className="mr-[0.25em] inline-block overflow-hidden align-bottom">
+            <span key={i} className="mr-[0.3em] inline-block overflow-hidden align-bottom">
               <motion.span
                 initial={{ y: '110%' }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.9, delay: 0.35 + i * 0.08, ease: easing }}
-                className="inline-block"
+                className="inline-block rounded-[3px] bg-background/90 px-2 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]"
               >
                 {word}
               </motion.span>
@@ -87,9 +87,11 @@ export function Hero({ hero }: { hero: HeroSection }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.7, ease: easing }}
-          className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg"
+          className="mt-4 max-w-xl text-base leading-[2.1] text-muted-foreground md:text-lg"
         >
-          {hero.subheadline}
+          <span className="rounded-[3px] bg-background/85 px-1.5 py-0.5 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]">
+            {hero.subheadline}
+          </span>
         </motion.p>
 
         <motion.div
