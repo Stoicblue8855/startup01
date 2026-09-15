@@ -89,34 +89,36 @@ export function Hero({ hero }: { hero: HeroSection }) {
           </motion.div>
         </div>
 
-        {/* Image panel — fully visible, its own frame */}
+        {/* Image — floating, no frame/background, sits directly on the page */}
         <motion.div
           ref={imgRef}
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: easing }}
-          className="relative order-1 aspect-square overflow-hidden rounded-sm bg-secondary md:order-2 md:aspect-[4/5]"
+          className="relative order-1 aspect-square md:order-2 md:aspect-[4/5]"
         >
-          <motion.div style={{ scale }} className="absolute inset-0">
+          <motion.div style={{ scale }} className="relative size-full">
             {hero.video ? (
-              <video className="size-full object-cover" autoPlay muted loop playsInline poster={hero.poster}>
+              <video className="size-full object-contain" autoPlay muted loop playsInline poster={hero.poster}>
                 <source src={hero.video} type="video/mp4" />
               </video>
             ) : (
-              <Image
-                src={hero.poster || '/placeholder.svg'}
-                alt={hero.posterAlt}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
+              <Float distance={16} duration={7} className="relative size-full">
+                <Image
+                  src={hero.poster || '/placeholder.svg'}
+                  alt={hero.posterAlt}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.15)]"
+                />
+              </Float>
             )}
           </motion.div>
 
           <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <Float distance={14} duration={7} className="absolute left-[10%] top-[16%] size-2 rounded-full bg-gold/50" />
-            <Float distance={18} duration={8} delay={1} className="absolute right-[12%] top-[24%] size-2.5 rounded-full bg-gold/40" />
+            <Float distance={14} duration={7} className="absolute left-[6%] top-[10%] size-2 rounded-full bg-gold/50" />
+            <Float distance={18} duration={8} delay={1} className="absolute right-[8%] top-[18%] size-2.5 rounded-full bg-gold/40" />
           </div>
         </motion.div>
       </div>

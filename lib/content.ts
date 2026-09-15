@@ -78,7 +78,7 @@ export const heroSection: HeroSection = {
   secondaryCtaLabel: 'Watch the film',
   secondaryCtaHref: '#brand-film',
   video: '', // SUPABASE: cinematic MP4 URL from Supabase Storage; falls back to poster below
-  poster: '/images/hero-watch.png',
+  poster: '/images/hero-watch-float.png',
   posterAlt: 'Luxury gold and steel automatic wristwatch on a deep charcoal background',
 }
 
