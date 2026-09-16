@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { siteSettings } from '@/lib/content'
 import { Logo } from '@/components/brand/logo'
-import { NewsletterForm } from './newsletter'
 
 export function Footer() {
   return (
@@ -13,13 +12,6 @@ export function Footer() {
             <p className="mt-6 font-serif text-2xl leading-snug text-balance">
               {siteSettings.tagline}
             </p>
-            <p className="mt-8 text-xs uppercase tracking-wide-luxe text-muted-foreground">
-              The Correspondence
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Private previews, new releases and stories from the atelier.
-            </p>
-            <NewsletterForm className="mt-4" compact />
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
