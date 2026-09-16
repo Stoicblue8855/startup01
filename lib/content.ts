@@ -18,14 +18,14 @@ import { getSupabaseClient } from './supabase'
 export const siteSettings: SiteSettings = {
   brandName: 'SamayChakkra',
   tagline: 'Time, made to be inherited.',
-  email: 'concierge@brandname.com',
-  phone: '+1 (212) 555-0180',
+  email: 'concierge@samaychakkra.com',
+  phone: '+91 22 6155 0180',
   socials: [
     { label: 'Instagram', href: 'https://instagram.com' },
     { label: 'YouTube', href: 'https://youtube.com' },
     { label: 'LinkedIn', href: 'https://linkedin.com' },
   ],
-  currencies: ['USD', 'EUR', 'GBP', 'CHF', 'JPY'],
+  currencies: ['INR', 'USD', 'EUR', 'GBP', 'CHF', 'JPY'],
   languages: ['English', 'Français', 'Deutsch', '日本語'],
   footer: [
     {
