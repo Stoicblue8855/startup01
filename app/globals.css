@@ -41,7 +41,7 @@
   color-scheme: light;
 
   /* Warm ivory foundation — premium, gallery-like, not stark white */
-  --background: oklch(0.965 0.012 85);
+  --background: oklch(0.972 0.022 88);
   --foreground: oklch(0.14 0.02 45);
 
   --card: oklch(0.985 0.008 85);
