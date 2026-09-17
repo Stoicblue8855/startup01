@@ -57,6 +57,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [wishlist, setWishlist] = useState<WishlistItem[]>([])
   const [cartOpen, setCartOpen] = useState(false)
   const [wishlistOpen, setWishlistOpen] = useState(false)
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
     try {
@@ -66,16 +67,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (w) setWishlist(JSON.parse(w))
     } catch {
       /* ignore malformed storage */
+    } finally {
+      setHydrated(true)
     }
   }, [])
 
+  // Skip writing back to storage until after the initial read above completes,
+  // so we never briefly overwrite a returning visitor's saved cart with [].
   useEffect(() => {
+    if (!hydrated) return
     localStorage.setItem('brand-cart', JSON.stringify(lines))
-  }, [lines])
+  }, [lines, hydrated])
 
   useEffect(() => {
+    if (!hydrated) return
     localStorage.setItem('brand-wishlist', JSON.stringify(wishlist))
-  }, [wishlist])
+  }, [wishlist, hydrated])
 
   const addToCart = useCallback<CartState['addToCart']>((line, quantity = 1) => {
     setLines((prev) => {

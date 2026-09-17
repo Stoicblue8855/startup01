@@ -4,10 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Heart, Minus, Plus, X } from 'lucide-react'
-import { type ReactNode, useEffect } from 'react'
+import { type ReactNode } from 'react'
 import { useCart } from './cart-context'
 import { formatPrice } from '@/lib/format'
 import { LuxButton } from '@/components/brand/lux-button'
+import { useScrollLock } from '@/lib/scroll-lock'
 
 function Drawer({
   open,
@@ -22,13 +23,7 @@ function Drawer({
   children: ReactNode
   footer?: ReactNode
 }) {
-  useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden'
-    else document.body.style.overflow = ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [open])
+  useScrollLock(open)
 
   return (
     <AnimatePresence>

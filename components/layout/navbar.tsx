@@ -12,6 +12,7 @@ import { Magnetic } from '@/components/motion/magnetic'
 import { useCart } from '@/components/cart/cart-context'
 import { SearchOverlay } from './search-overlay'
 import { collections } from '@/lib/products'
+import { useScrollLock } from '@/lib/scroll-lock'
 
 const navLinks = [
   { label: 'Watches', href: '/shop' },
@@ -26,6 +27,14 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const { cartCount, wishlist, setCartOpen, setWishlistOpen } = useCart()
+
+  useScrollLock(menuOpen)
+
+  // The navbar persists across route changes, so without this the mobile
+  // menu could stay open on top of whatever page a link navigated to.
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [pathname])
 
   // Only the homepage has a full-bleed hero the bar floats over.
   const overHero = pathname === '/'

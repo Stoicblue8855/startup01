@@ -7,19 +7,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Search, X } from 'lucide-react'
 import { products } from '@/lib/products'
 import { formatPrice } from '@/lib/format'
+import { useScrollLock } from '@/lib/scroll-lock'
 
 export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [query, setQuery] = useState('')
 
+  useScrollLock(open)
+
   useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden'
-    else {
-      document.body.style.overflow = ''
-      setQuery('')
-    }
-    return () => {
-      document.body.style.overflow = ''
-    }
+    if (!open) setQuery('')
   }, [open])
 
   useEffect(() => {

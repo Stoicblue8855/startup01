@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { siteSettings } from '@/lib/content'
+import { useScrollLock } from '@/lib/scroll-lock'
 
 /**
  * Branded preloader: a clock face draws in, hour/minute hands set
@@ -14,21 +15,18 @@ export function Preloader() {
   const [visible, setVisible] = useState(false)
   const [mounted, setMounted] = useState(false)
 
+  useScrollLock(visible)
+
   useEffect(() => {
     setMounted(true)
     const seen = sessionStorage.getItem('brand-preloader-seen')
     if (seen) return
     setVisible(true)
-    document.body.style.overflow = 'hidden'
     const timer = setTimeout(() => {
       setVisible(false)
       sessionStorage.setItem('brand-preloader-seen', '1')
-      document.body.style.overflow = ''
     }, 2600)
-    return () => {
-      clearTimeout(timer)
-      document.body.style.overflow = ''
-    }
+    return () => clearTimeout(timer)
   }, [])
 
   if (!mounted) return null
