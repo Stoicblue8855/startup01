@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://startup01-six.vercel.app/sitemap.xml',
+    sitemap: 'https://samaychakkra.com/sitemap.xml',
   }
 }

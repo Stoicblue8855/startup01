@@ -50,7 +50,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             '@context': 'https://schema.org',
             '@type': 'Product',
             name: product.name,
-            image: `https://startup01-six.vercel.app${product.image}`,
+            image: `https://samaychakkra.com${product.image}`,
             description: product.shortDescription,
             sku: product.reference,
             brand: { '@type': 'Brand', name: 'SamayChakkra' },

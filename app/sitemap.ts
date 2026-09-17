@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getJournalPosts } from '@/lib/content'
 import { getProducts } from '@/lib/products'
 
-const BASE_URL = 'https://startup01-six.vercel.app'
+const BASE_URL = 'https://samaychakkra.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, posts] = await Promise.all([getProducts(), getJournalPosts()])

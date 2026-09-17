@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://startup01-six.vercel.app'),
+  metadataBase: new URL('https://samaychakkra.com'),
   title: {
     default: 'SamayChakkra — Time, made to be inherited.',
     template: '%s · SamayChakkra',
@@ -82,8 +82,8 @@ export default function RootLayout({
               name: 'SamayChakkra',
               description:
                 'SamayChakkra crafts luxury automatic watches, chronographs and grand complications.',
-              url: 'https://startup01-six.vercel.app',
-              image: 'https://startup01-six.vercel.app/images/hero-watch.png',
+              url: 'https://samaychakkra.com',
+              image: 'https://samaychakkra.com/images/hero-watch.png',
               priceRange: '₹₹₹₹',
             }),
           }}
