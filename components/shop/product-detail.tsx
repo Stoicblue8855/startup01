@@ -148,7 +148,7 @@ export function ProductDetail({ product }: { product: Product }) {
           </summary>
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
             Every piece ships insured, in atelier packaging, with a two-year international warranty and complimentary
-            first service. Delivery typically takes 3–5 business days; boutique collection is available at checkout.
+            first service. Delivery typically takes 3–5 business days.
           </p>
         </details>
       </div>

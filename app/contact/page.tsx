@@ -29,7 +29,7 @@ export default async function ContactPage({
           description={
             isAccount
               ? 'We keep accounts by hand, through a member of the house — no passwords to lose. Tell us what you need and we will take it from here.'
-              : 'For orders, warranty, press or simply a question — write to us, or reach a boutique directly.'
+              : 'For orders, warranty, press or simply a question — write to us directly and we will get back to you.'
           }
         />
 

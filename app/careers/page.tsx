@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const openings = [
   { role: 'Watchmaker, Complications', location: 'Atelier · On-site' },
-  { role: 'Boutique Specialist', location: 'New York · On-site' },
+  { role: 'Retail Specialist', location: 'Mumbai · On-site' },
   { role: 'Case & Bracelet Polisher', location: 'Atelier · On-site' },
   { role: 'Product Photographer', location: 'Remote · Contract' },
 ]

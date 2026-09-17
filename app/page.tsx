@@ -1,5 +1,4 @@
 import {
-  getBoutiques,
   getHeroContent,
   getPressMentions,
   getTestimonials,
@@ -18,22 +17,19 @@ import { BrandFilm } from '@/components/home/brand-film'
 import { Materials } from '@/components/home/materials'
 import { NewArrivals } from '@/components/home/new-arrivals'
 import { Testimonials } from '@/components/home/testimonials'
+import { NewsletterSection } from '@/components/home/newsletter-section'
 
 // Re-fetch from Supabase at most once every 60 seconds instead of only at
 // build time, so edits made in the Supabase table editor show up on the
 // live site without needing a manual redeploy.
 export const revalidate = 60
 
-import { BoutiquesPreview } from '@/components/home/boutiques-preview'
-import { NewsletterSection } from '@/components/home/newsletter-section'
-
 export default async function HomePage() {
-  const [hero, collections, materials, boutiques, testimonials, press, products, signature] =
+  const [hero, collections, materials, testimonials, press, products, signature] =
     await Promise.all([
       getHeroContent(),
       getCollections(),
       getMaterials(),
-      getBoutiques(),
       getTestimonials(),
       getPressMentions(),
       getProducts(),
@@ -50,7 +46,6 @@ export default async function HomePage() {
       <NewArrivals products={products.slice(0, 4)} />
       <Materials materials={materials} />
       <Testimonials testimonials={testimonials} press={press} />
-      <BoutiquesPreview boutiques={boutiques} />
       <NewsletterSection />
     </>
   )

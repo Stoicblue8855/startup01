@@ -85,19 +85,6 @@ export interface PressMention {
   quote: string
 }
 
-/** table: boutiques */
-export interface Boutique {
-  id: string
-  city: string
-  country: string
-  region: string
-  address: string
-  phone: string
-  hours: string
-  lat: number
-  lng: number
-}
-
 /** table: journal_posts */
 export interface JournalPost {
   id: string

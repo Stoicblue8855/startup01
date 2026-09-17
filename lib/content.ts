@@ -1,5 +1,4 @@
 import type {
-  Boutique,
   HeroSection,
   JournalPost,
   Milestone,
@@ -50,7 +49,6 @@ export const siteSettings: SiteSettings = {
     {
       heading: 'Support',
       links: [
-        { label: 'Boutiques', href: '/locations' },
         { label: 'Contact', href: '/contact' },
         { label: 'FAQ', href: '/faq' },
         { label: 'Warranty & Service', href: '/faq#warranty' },
@@ -115,75 +113,6 @@ export const pressMentions: PressMention[] = [
   { id: 'p-3', outlet: 'Monocle', quote: 'Craft that refuses to hurry.' },
   { id: 'p-4', outlet: 'GQ', quote: 'The Meridian is the chronograph to beat this year.' },
   { id: 'p-5', outlet: 'Robb Report', quote: 'The Grand Tourbillon is a genuine grail.' },
-]
-
-export const boutiques: Boutique[] = [
-  {
-    id: 'b-mumbai',
-    city: 'Mumbai',
-    country: 'India',
-    region: 'West',
-    address: 'Kala Ghoda, Fort, Mumbai 400001',
-    phone: '+91 22 6155 0180',
-    hours: 'Mon–Sat 11:00–20:00',
-    lat: 18.9296,
-    lng: 72.8323,
-  },
-  {
-    id: 'b-delhi',
-    city: 'New Delhi',
-    country: 'India',
-    region: 'North',
-    address: 'Khan Market, New Delhi 110003',
-    phone: '+91 11 4155 0142',
-    hours: 'Mon–Sat 11:00–20:00',
-    lat: 28.5992,
-    lng: 77.2266,
-  },
-  {
-    id: 'b-bangalore',
-    city: 'Bengaluru',
-    country: 'India',
-    region: 'South',
-    address: 'UB City, Vittal Mallya Road, Bengaluru 560001',
-    phone: '+91 80 4155 0120',
-    hours: 'Mon–Sat 11:00–20:00',
-    lat: 12.9716,
-    lng: 77.5980,
-  },
-  {
-    id: 'b-hyderabad',
-    city: 'Hyderabad',
-    country: 'India',
-    region: 'South',
-    address: 'Road No. 36, Jubilee Hills, Hyderabad 500033',
-    phone: '+91 40 4155 0199',
-    hours: 'Daily 11:00–20:00',
-    lat: 17.4239,
-    lng: 78.4738,
-  },
-  {
-    id: 'b-chennai',
-    city: 'Chennai',
-    country: 'India',
-    region: 'South',
-    address: 'Khader Nawaz Khan Road, Nungambakkam, Chennai 600006',
-    phone: '+91 44 4155 0166',
-    hours: 'Daily 11:00–20:00',
-    lat: 13.0569,
-    lng: 80.2425,
-  },
-  {
-    id: 'b-kolkata',
-    city: 'Kolkata',
-    country: 'India',
-    region: 'East',
-    address: 'Park Street, Kolkata 700016',
-    phone: '+91 33 4155 0133',
-    hours: 'Mon–Sat 11:00–19:30',
-    lat: 22.5535,
-    lng: 88.3524,
-  },
 ]
 
 export const milestones: Milestone[] = [
@@ -359,15 +288,6 @@ export async function getPressMentions(): Promise<PressMention[]> {
     if (data) return data as PressMention[]
   }
   return pressMentions
-}
-
-export async function getBoutiques(): Promise<Boutique[]> {
-  const supabase = getSupabaseClient()
-  if (supabase) {
-    const { data } = await supabase.from('boutiques').select('*')
-    if (data) return data as Boutique[]
-  }
-  return boutiques
 }
 
 export async function getMilestones(): Promise<Milestone[]> {

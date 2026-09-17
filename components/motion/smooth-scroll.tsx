@@ -15,9 +15,11 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     if (prefersReduced) return
 
     const lenis = new Lenis({
-      duration: 0.9,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
+      duration: 0.6,
+      easing: (t) => 1 - Math.pow(1 - t, 2.5),
       smoothWheel: true,
+      wheelMultiplier: 1.15,
+      touchMultiplier: 1.3,
     })
 
     let frame = 0

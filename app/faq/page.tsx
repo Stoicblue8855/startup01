@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const faqs = [
   {
     q: 'How do I find the right case size?',
-    a: 'Measure your wrist just below the bone with a soft tape or strip of paper. Most of our dress watches suit wrists 15–18cm; sport models are built for 16–20cm. Boutique specialists are also happy to advise by phone.',
+    a: 'Measure your wrist just below the bone with a soft tape or strip of paper. Most of our dress watches suit wrists 15–18cm; sport models are built for 16–20cm. Our support team is also happy to advise by phone.',
   },
   {
     q: 'Can I return or exchange a watch?',
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: 'How long does delivery take?',
-    a: 'Standard delivery is 3–5 business days, insured door to door. Boutique collection is available at checkout and is usually ready within 48 hours.',
+    a: 'Standard delivery is 3–5 business days, insured door to door. Store pickup options are shown at checkout where available.',
   },
   {
     q: 'Do you service watches you did not sell?',
@@ -62,7 +62,7 @@ export default function FaqPage() {
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
             Every watch carries a two-year international warranty against manufacturing defects, plus a
             complimentary first service. Warranty does not cover water damage from unrated exposure, accidental
-            impact, or unauthorised repair. Register your piece with your boutique to enable global service history.
+            impact, or unauthorised repair. Register your piece with us to enable global service history.
           </p>
         </div>
 
@@ -72,7 +72,7 @@ export default function FaqPage() {
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
             Prices are shown in your selected currency and include applicable duties for the country of delivery
             unless stated otherwise. Orders may be cancelled free of charge before dispatch. Full terms are provided
-            at checkout and on request from any boutique.
+            at checkout and available on request.
           </p>
         </div>
 

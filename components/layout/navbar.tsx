@@ -18,7 +18,6 @@ const navLinks = [
   { label: 'Watches', href: '/shop' },
   { label: 'Heritage', href: '/about' },
   { label: 'Journal', href: '/journal' },
-  { label: 'Boutiques', href: '/locations' },
 ]
 
 export function Navbar() {
