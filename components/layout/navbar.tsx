@@ -89,7 +89,7 @@ export function Navbar() {
             <IconButton label="Search" onClick={() => setSearchOpen(true)}>
               <Search className="size-[18px]" />
             </IconButton>
-            <IconButton label="Account" href="/contact?intent=account">
+            <IconButton label="Account" href="/account">
               <User className="size-[18px]" />
             </IconButton>
             <IconButton label="Wishlist" onClick={() => setWishlistOpen(true)} badge={wishlist.length}>
