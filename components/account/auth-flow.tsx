@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowLeft, Check, Mail, Phone } from 'lucide-react'
 import { LuxButton } from '@/components/brand/lux-button'
@@ -18,6 +19,7 @@ const variants = {
 }
 
 export function AuthFlow() {
+  const router = useRouter()
   const [step, setStep] = useState<Step>('method')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -37,10 +39,19 @@ export function AuthFlow() {
     otpKeyRef.current += 1
   }
 
+  useEffect(() => {
+    if (step !== 'success') return
+    const t = setTimeout(() => router.push('/account/dashboard'), 1400)
+    return () => clearTimeout(t)
+  }, [step, router])
+
   function handleGoogle() {
     // WIRE-UP: Google OAuth will be connected here in the next step.
     setLoading(true)
-    setTimeout(() => setLoading(false), 900)
+    setTimeout(() => {
+      setLoading(false)
+      setStep('success')
+    }, 900)
   }
 
   function handleEmailSubmit(e: React.FormEvent) {
