@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowLeft, Check, Mail, Phone } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, Check, Mail, Phone } from 'lucide-react'
 import { LuxButton } from '@/components/brand/lux-button'
+import { useAuth } from './auth-context'
 import { GoogleIcon } from './google-icon'
 import { OtpInput } from './otp-input'
 
@@ -20,6 +21,7 @@ const variants = {
 
 export function AuthFlow() {
   const router = useRouter()
+  const { user, configured, sendEmailOtp, verifyEmailOtp, sendPhoneOtp, verifyPhoneOtp, signInWithGoogle } = useAuth()
   const [step, setStep] = useState<Step>('method')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
@@ -27,6 +29,12 @@ export function AuthFlow() {
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(0)
   const otpKeyRef = useRef(0)
+
+  // If a session already exists (e.g. returning from a Google redirect),
+  // go straight to the dashboard.
+  useEffect(() => {
+    if (user) router.replace('/account/dashboard')
+  }, [user, router])
 
   useEffect(() => {
     if (countdown <= 0) return
@@ -41,32 +49,39 @@ export function AuthFlow() {
 
   useEffect(() => {
     if (step !== 'success') return
-    const t = setTimeout(() => router.push('/account/dashboard'), 1400)
+    const t = setTimeout(() => router.push('/account/dashboard'), 1200)
     return () => clearTimeout(t)
   }, [step, router])
 
-  function handleGoogle() {
-    // WIRE-UP: Google OAuth will be connected here in the next step.
+  async function handleGoogle() {
+    setError('')
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setStep('success')
-    }, 900)
+    const { error } = await signInWithGoogle()
+    setLoading(false)
+    if (error) setError(error)
+    // On success, Supabase redirects the browser to Google — no further
+    // action needed here.
   }
 
-  function handleEmailSubmit(e: React.FormEvent) {
+  async function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Enter a valid email address.')
       return
     }
-    // WIRE-UP: send email OTP here in the next step.
+    setLoading(true)
+    const { error } = await sendEmailOtp(email)
+    setLoading(false)
+    if (error) {
+      setError(error)
+      return
+    }
     setStep('email-otp')
     startCountdown()
   }
 
-  function handlePhoneSubmit(e: React.FormEvent) {
+  async function handlePhoneSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     const digits = phone.replace(/\D/g, '')
@@ -74,22 +89,40 @@ export function AuthFlow() {
       setError('Enter a valid phone number.')
       return
     }
-    // WIRE-UP: send SMS OTP here in the next step.
+    setLoading(true)
+    const { error } = await sendPhoneOtp(`+91${digits}`)
+    setLoading(false)
+    if (error) {
+      setError(error)
+      return
+    }
     setStep('phone-otp')
     startCountdown()
   }
 
-  function handleOtpComplete() {
-    // WIRE-UP: verify the OTP here in the next step.
+  async function handleOtpComplete(code: string) {
+    setError('')
     setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      setStep('success')
-    }, 700)
+    const digits = phone.replace(/\D/g, '')
+    const { error } =
+      step === 'email-otp' ? await verifyEmailOtp(email, code) : await verifyPhoneOtp(`+91${digits}`, code)
+    setLoading(false)
+    if (error) {
+      setError(error)
+      return
+    }
+    setStep('success')
   }
 
   return (
     <div className="relative mx-auto w-full max-w-sm overflow-hidden">
+      {!configured && (
+        <div className="mb-6 flex items-start gap-2.5 border border-gold/40 bg-gold/5 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+          <AlertTriangle className="mt-0.5 size-4 shrink-0 text-gold" />
+          Sign-in isn&rsquo;t connected yet — this will start working once Supabase is configured.
+        </div>
+      )}
+
       <AnimatePresence mode="wait">
         {step === 'method' && (
           <motion.div key="method" variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}>
@@ -130,6 +163,8 @@ export function AuthFlow() {
               Continue with phone
             </button>
 
+            {error && <p className="mt-4 text-center text-xs text-destructive">{error}</p>}
+
             <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
               By continuing you agree to our{' '}
               <a href="/faq#terms" className="underline underline-offset-2 hover:text-gold">
@@ -166,8 +201,8 @@ export function AuthFlow() {
               className="mt-6 w-full border-b border-border bg-transparent py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-gold focus:outline-none"
             />
             {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
-            <LuxButton type="submit" className="mt-7 w-full justify-center">
-              Send code
+            <LuxButton type="submit" className="mt-7 w-full justify-center" disabled={loading}>
+              {loading ? 'Sending…' : 'Send code'}
             </LuxButton>
           </motion.form>
         )}
@@ -198,8 +233,8 @@ export function AuthFlow() {
               />
             </div>
             {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
-            <LuxButton type="submit" className="mt-7 w-full justify-center">
-              Send code
+            <LuxButton type="submit" className="mt-7 w-full justify-center" disabled={loading}>
+              {loading ? 'Sending…' : 'Send code'}
             </LuxButton>
           </motion.form>
         )}
@@ -223,11 +258,16 @@ export function AuthFlow() {
               <OtpInput key={otpKeyRef.current} onComplete={handleOtpComplete} />
             </div>
 
+            {error && <p className="mt-4 text-center text-xs text-destructive">{error}</p>}
+
             <div className="mt-6 text-center text-sm">
               {countdown > 0 ? (
                 <span className="text-muted-foreground">Resend code in {countdown}s</span>
               ) : (
-                <button onClick={startCountdown} className="text-gold underline underline-offset-2">
+                <button
+                  onClick={() => (step === 'email-otp' ? sendEmailOtp(email) : sendPhoneOtp(`+91${phone.replace(/\D/g, '')}`)).then(startCountdown)}
+                  className="text-gold underline underline-offset-2"
+                >
                   Resend code
                 </button>
               )}
