@@ -666,7 +666,7 @@ function SettingsTab({
         >
           <span className="flex items-center gap-3 text-sm">
             <Bell className="size-4 text-gold" />
-            New releases &amp; private previews
+            New releases &amp; updates
           </span>
           <span className={cn('relative h-6 w-11 shrink-0 rounded-full transition-colors', notifications ? 'bg-gold' : 'bg-border')}>
             <motion.span
