@@ -35,12 +35,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(data.session?.user ?? null)
       setLoading(false)
     })
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((event, newSession) => {
       setSession(newSession)
       setUser(newSession?.user ?? null)
+
+      if (event === 'SIGNED_IN' && newSession?.user) {
+        const method = newSession.user.app_metadata?.provider === 'google' ? 'google' : 'email'
+        supabase
+          .from('login_events')
+          .insert({
+            user_id: newSession.user.id,
+            email: newSession.user.email,
+            method,
+            user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : null,
+          })
+          .then(({ error }) => {
+            if (error) console.error('login_events insert failed', error)
+          })
+      }
     })
     return () => listener.subscription.unsubscribe()
   }, [supabase])
+
+  // "Live" presence heartbeat: while a user is signed in and has the site
+  // open, refresh their last_seen_at every 30s. Query user_presence where
+  // last_seen_at is within the last couple minutes to see who's online now.
+  useEffect(() => {
+    if (!supabase || !user) return
+    async function beat() {
+      await supabase!.from('user_presence').upsert({
+        user_id: user!.id,
+        email: user!.email,
+        last_seen_at: new Date().toISOString(),
+      })
+    }
+    beat()
+    const interval = setInterval(beat, 30000)
+    return () => clearInterval(interval)
+  }, [supabase, user])
 
   async function sendEmailOtp(email: string) {
     if (!supabase) return { error: 'Sign-in is not available right now.' }
