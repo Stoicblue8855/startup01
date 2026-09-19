@@ -85,7 +85,7 @@ export default function RootLayout({
               url: 'https://samaychakkra.com',
               image: 'https://samaychakkra.com/images/hero-watch.png',
               priceRange: '₹₹₹₹',
-            }),
+            }).replace(/</g, '\\u003c'),
           }}
         />
         <a

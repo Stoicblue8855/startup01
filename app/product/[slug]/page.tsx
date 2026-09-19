@@ -60,7 +60,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               price: product.price,
               availability: 'https://schema.org/InStock',
             },
-          }),
+          }).replace(/</g, '\\u003c'),
         }}
       />
       <div className="mx-auto max-w-[1400px] px-5 pb-20 md:px-10 md:pb-28">
