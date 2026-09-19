@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AlertTriangle, ArrowLeft, Check, Mail, Phone } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, Check, Mail } from 'lucide-react'
 import { LuxButton } from '@/components/brand/lux-button'
 import { useAuth } from './auth-context'
 import { GoogleIcon } from './google-icon'
 import { OtpInput } from './otp-input'
 
-type Step = 'method' | 'email-entry' | 'email-otp' | 'phone-entry' | 'phone-otp' | 'success'
+type Step = 'method' | 'email-entry' | 'email-otp' | 'success'
 
 const RESEND_SECONDS = 30
 
@@ -21,10 +21,9 @@ const variants = {
 
 export function AuthFlow() {
   const router = useRouter()
-  const { user, configured, sendEmailOtp, verifyEmailOtp, sendPhoneOtp, verifyPhoneOtp, signInWithGoogle } = useAuth()
+  const { user, configured, sendEmailOtp, verifyEmailOtp, signInWithGoogle } = useAuth()
   const [step, setStep] = useState<Step>('method')
   const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(0)
@@ -81,31 +80,10 @@ export function AuthFlow() {
     startCountdown()
   }
 
-  async function handlePhoneSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError('')
-    const digits = phone.replace(/\D/g, '')
-    if (digits.length < 10) {
-      setError('Enter a valid phone number.')
-      return
-    }
-    setLoading(true)
-    const { error } = await sendPhoneOtp(`+91${digits}`)
-    setLoading(false)
-    if (error) {
-      setError(error)
-      return
-    }
-    setStep('phone-otp')
-    startCountdown()
-  }
-
   async function handleOtpComplete(code: string) {
     setError('')
     setLoading(true)
-    const digits = phone.replace(/\D/g, '')
-    const { error } =
-      step === 'email-otp' ? await verifyEmailOtp(email, code) : await verifyPhoneOtp(`+91${digits}`, code)
+    const { error } = await verifyEmailOtp(email, code)
     setLoading(false)
     if (error) {
       setError(error)
@@ -152,17 +130,6 @@ export function AuthFlow() {
               Continue with email
             </button>
 
-            <button
-              onClick={() => {
-                setError('')
-                setStep('phone-entry')
-              }}
-              className="mt-3 flex w-full items-center gap-3 border border-border bg-background px-4 py-3.5 text-left text-sm text-foreground transition-colors hover:border-gold"
-            >
-              <Phone className="size-[18px] text-gold" />
-              Continue with phone
-            </button>
-
             {error && <p className="mt-4 text-center text-xs text-destructive">{error}</p>}
 
             <p className="mt-8 text-center text-xs leading-relaxed text-muted-foreground">
@@ -207,39 +174,7 @@ export function AuthFlow() {
           </motion.form>
         )}
 
-        {step === 'phone-entry' && (
-          <motion.form
-            key="phone-entry"
-            onSubmit={handlePhoneSubmit}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <BackButton onClick={() => setStep('method')} />
-            <h2 className="mt-5 font-serif text-2xl">What&rsquo;s your number?</h2>
-            <p className="mt-2 text-sm text-muted-foreground">We&rsquo;ll text a one-time code to verify it&rsquo;s you.</p>
-            <div className="mt-6 flex items-center gap-2 border-b border-border focus-within:border-gold">
-              <span className="py-3 text-muted-foreground">+91</span>
-              <input
-                autoFocus
-                type="tel"
-                inputMode="numeric"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="98765 43210"
-                className="w-full bg-transparent py-3 text-foreground placeholder:text-muted-foreground/60 focus:outline-none"
-              />
-            </div>
-            {error && <p className="mt-2 text-xs text-destructive">{error}</p>}
-            <LuxButton type="submit" className="mt-7 w-full justify-center" disabled={loading}>
-              {loading ? 'Sending…' : 'Send code'}
-            </LuxButton>
-          </motion.form>
-        )}
-
-        {(step === 'email-otp' || step === 'phone-otp') && (
+        {step === 'email-otp' && (
           <motion.div
             key="otp"
             variants={variants}
@@ -248,11 +183,9 @@ export function AuthFlow() {
             exit="exit"
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
-            <BackButton onClick={() => setStep(step === 'email-otp' ? 'email-entry' : 'phone-entry')} />
+            <BackButton onClick={() => setStep('email-entry')} />
             <h2 className="mt-5 font-serif text-2xl">Enter the code</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Sent to {step === 'email-otp' ? email : `+91 ${phone}`}
-            </p>
+            <p className="mt-2 text-sm text-muted-foreground">Sent to {email}</p>
 
             <div className="mt-7">
               <OtpInput key={otpKeyRef.current} onComplete={handleOtpComplete} />
@@ -264,10 +197,7 @@ export function AuthFlow() {
               {countdown > 0 ? (
                 <span className="text-muted-foreground">Resend code in {countdown}s</span>
               ) : (
-                <button
-                  onClick={() => (step === 'email-otp' ? sendEmailOtp(email) : sendPhoneOtp(`+91${phone.replace(/\D/g, '')}`)).then(startCountdown)}
-                  className="text-gold underline underline-offset-2"
-                >
+                <button onClick={() => sendEmailOtp(email).then(startCountdown)} className="text-gold underline underline-offset-2">
                   Resend code
                 </button>
               )}
