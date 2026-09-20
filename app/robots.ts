@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://samaychakkra.com/sitemap.xml',
+    sitemap: 'https://www.samaychakkra.com/sitemap.xml',
   }
 }

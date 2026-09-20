@@ -51,7 +51,7 @@ export function ProductDetail({ product }: { product: Product }) {
                   i === activeImage ? 'opacity-100 ring-1 ring-gold' : 'opacity-60 hover:opacity-100',
                 )}
               >
-                <Image src={img.src || '/placeholder.svg'} alt="" fill sizes="120px" className="object-cover" />
+                <Image src={img.src || '/placeholder.svg'} alt={img.alt} fill sizes="120px" className="object-cover" />
               </button>
             ))}
           </div>

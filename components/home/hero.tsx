@@ -41,15 +41,18 @@ export function Hero({ hero }: { hero: HeroSection }) {
 
           <h1 className="mt-5 max-w-xl font-serif text-4xl leading-[1.08] text-balance text-foreground md:text-6xl lg:text-[4.25rem]">
             {words.map((word, i) => (
-              <span key={i} className="mr-[0.28em] inline-block overflow-hidden align-bottom">
-                <motion.span
-                  initial={{ y: '110%' }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.25 + i * 0.07, ease: easing }}
-                  className="inline-block"
-                >
-                  {word}
-                </motion.span>
+              <span key={i}>
+                <span className="inline-block overflow-hidden align-bottom">
+                  <motion.span
+                    initial={{ y: '110%' }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.25 + i * 0.07, ease: easing }}
+                    className="inline-block"
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+                {i < words.length - 1 ? ' ' : ''}
               </span>
             ))}
           </h1>

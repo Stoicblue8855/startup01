@@ -35,50 +35,18 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            {siteSettings.socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs uppercase tracking-wide-luxe text-muted-foreground transition-colors hover:text-gold"
-              >
-                {s.label}
-              </a>
-            ))}
-          </div>
-          <div className="flex items-center gap-4">
-            <label className="sr-only" htmlFor="footer-language">
-              Language
-            </label>
-            <select
-              id="footer-language"
-              defaultValue={siteSettings.languages[0]}
-              className="cursor-pointer border border-border bg-transparent px-3 py-2 text-xs uppercase tracking-wide-luxe text-muted-foreground transition-colors hover:border-gold hover:text-foreground focus:outline-none"
+        <div className="mt-16 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-8">
+          {siteSettings.socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="text-xs uppercase tracking-wide-luxe text-muted-foreground transition-colors hover:text-gold"
             >
-              {siteSettings.languages.map((l) => (
-                <option key={l} className="bg-card text-foreground">
-                  {l}
-                </option>
-              ))}
-            </select>
-            <label className="sr-only" htmlFor="footer-currency">
-              Currency
-            </label>
-            <select
-              id="footer-currency"
-              defaultValue={siteSettings.currencies[0]}
-              className="cursor-pointer border border-border bg-transparent px-3 py-2 text-xs uppercase tracking-wide-luxe text-muted-foreground transition-colors hover:border-gold hover:text-foreground focus:outline-none"
-            >
-              {siteSettings.currencies.map((c) => (
-                <option key={c} className="bg-card text-foreground">
-                  {c}
-                </option>
-              ))}
-            </select>
-          </div>
+              {s.label}
+            </a>
+          ))}
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground">

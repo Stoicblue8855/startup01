@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://samaychakkra.com'),
+  metadataBase: new URL('https://www.samaychakkra.com'),
   title: {
     default: 'SamayChakkra — Time, made to be inherited.',
     template: '%s · SamayChakkra',
@@ -82,8 +82,8 @@ export default function RootLayout({
               name: 'SamayChakkra',
               description:
                 'SamayChakkra crafts luxury automatic watches, chronographs and grand complications.',
-              url: 'https://samaychakkra.com',
-              image: 'https://samaychakkra.com/images/hero-watch.png',
+              url: 'https://www.samaychakkra.com',
+              image: 'https://www.samaychakkra.com/images/hero-watch.png',
               priceRange: '₹₹₹₹',
             }).replace(/</g, '\\u003c'),
           }}
