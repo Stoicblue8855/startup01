@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AlertTriangle, ArrowLeft, Check, Mail } from 'lucide-react'
 import { LuxButton } from '@/components/brand/lux-button'
@@ -21,6 +21,9 @@ const variants = {
 
 export function AuthFlow() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectParam = searchParams.get('redirect')
+  const destination = redirectParam && redirectParam.startsWith('/') ? redirectParam : '/account/dashboard'
   const { user, configured, sendEmailOtp, verifyEmailOtp, signInWithGoogle } = useAuth()
   const [step, setStep] = useState<Step>('method')
   const [email, setEmail] = useState('')
@@ -30,9 +33,10 @@ export function AuthFlow() {
   const otpKeyRef = useRef(0)
 
   // If a session already exists (e.g. returning from a Google redirect),
-  // go straight to the dashboard.
+  // go straight to wherever they were headed.
   useEffect(() => {
-    if (user) router.replace('/account/dashboard')
+    if (user) router.replace(destination)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, router])
 
   useEffect(() => {
@@ -48,14 +52,15 @@ export function AuthFlow() {
 
   useEffect(() => {
     if (step !== 'success') return
-    const t = setTimeout(() => router.push('/account/dashboard'), 1200)
+    const t = setTimeout(() => router.push(destination), 1200)
     return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, router])
 
   async function handleGoogle() {
     setError('')
     setLoading(true)
-    const { error } = await signInWithGoogle()
+    const { error } = await signInWithGoogle(destination)
     setLoading(false)
     if (error) setError(error)
     // On success, Supabase redirects the browser to Google — no further

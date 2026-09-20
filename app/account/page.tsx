@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { Logo } from '@/components/brand/logo'
 import { AuthFlow } from '@/components/account/auth-flow'
 import { Reveal } from '@/components/motion/reveal'
@@ -20,7 +21,9 @@ export default function AccountPage() {
       </Reveal>
 
       <Reveal delay={0.1} className="w-full">
-        <AuthFlow />
+        <Suspense fallback={<div className="mx-auto h-[420px] w-full max-w-sm" />}>
+          <AuthFlow />
+        </Suspense>
       </Reveal>
     </div>
   )

@@ -8,6 +8,7 @@ import { SmoothScroll } from '@/components/motion/smooth-scroll'
 import { Preloader } from './preloader'
 import { Navbar } from './navbar'
 import { Footer } from './footer'
+import { AuthGate } from './auth-gate'
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
@@ -17,7 +18,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
           <Preloader />
           <Navbar />
           <main id="main" className="min-h-dvh">
-            {children}
+            <AuthGate>{children}</AuthGate>
           </main>
           <Footer />
           <CartDrawer />

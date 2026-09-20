@@ -13,7 +13,7 @@ interface AuthContextValue {
   verifyEmailOtp: (email: string, token: string) => Promise<{ error: string | null }>
   sendPhoneOtp: (phone: string) => Promise<{ error: string | null }>
   verifyPhoneOtp: (phone: string, token: string) => Promise<{ error: string | null }>
-  signInWithGoogle: () => Promise<{ error: string | null }>
+  signInWithGoogle: (redirectPath?: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
 }
 
@@ -101,11 +101,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: error?.message ?? null }
   }
 
-  async function signInWithGoogle() {
+  async function signInWithGoogle(redirectPath?: string) {
     if (!supabase) return { error: 'Sign-in is not available right now.' }
+    const destination = redirectPath && redirectPath !== '/account' ? redirectPath : '/account/dashboard'
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/account/dashboard` },
+      options: { redirectTo: `${window.location.origin}${destination}` },
     })
     return { error: error?.message ?? null }
   }
