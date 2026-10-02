@@ -8,6 +8,8 @@ import { useAuth } from '@/components/account/auth-context'
 
 const dialFont = Cormorant_Garamond({ subsets: ['latin'], weight: ['600', '700'], display: 'swap' })
 
+const PROTECTED_PREFIXES: string[] = []
+
 /**
  * Gates every page except /account (the sign-in page itself) behind
  * authentication. /account must stay reachable or a signed-out visitor
@@ -20,6 +22,10 @@ export function AuthGate({ children }: { children: ReactNode }) {
   // The sign-in page must always be reachable, otherwise nobody could
   // ever get past this gate.
   if (pathname === '/account') return <>{children}</>
+
+  // The storefront is public so customers and Google can browse it. Add a
+  // path prefix here (e.g. '/checkout') to require sign-in for that page.
+  if (!PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix))) return <>{children}</>
 
   // While Supabase isn't configured (e.g. local dev without env vars),
   // don't lock the whole site — fall through so the site stays usable.
