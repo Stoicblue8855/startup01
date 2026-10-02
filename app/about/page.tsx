@@ -18,6 +18,7 @@ export default async function AboutPage() {
     <div className="pt-28 md:pt-36">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
+          as="h1"
           eyebrow="Heritage"
           title="A century and a half, unhurried."
           description="Since 1874 we have worked from the same mountains, to the same standard, answering to no one but the movement itself."

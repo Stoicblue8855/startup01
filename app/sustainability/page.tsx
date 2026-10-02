@@ -32,6 +32,7 @@ export default async function SustainabilityPage() {
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
+          as="h1"
           eyebrow="Sustainability"
           title="Only what endures."
           description="A watch designed to be inherited is, by its nature, a sustainable object. We take the rest of the process just as seriously."

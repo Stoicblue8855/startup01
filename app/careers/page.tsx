@@ -22,6 +22,7 @@ export default function CareersPage() {
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
+          as="h1"
           eyebrow="Careers"
           title="Join the atelier."
           description="We hire slowly and keep people for decades. If that sounds like the wrong incentive, this may not be the place for you."

@@ -24,6 +24,7 @@ export default async function ContactPage({
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
+          as="h1"
           eyebrow="Contact"
           title={isAccount ? 'Your account, by way of a person.' : 'Reach the house directly.'}
           description={

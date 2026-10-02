@@ -19,6 +19,7 @@ export default async function JournalPage() {
     <div className="pt-28 md:pt-36">
       <div className="mx-auto max-w-[1400px] px-5 pb-20 md:px-10 md:pb-28">
         <SectionHeading
+          as="h1"
           eyebrow="The Journal"
           title="Notes from the atelier."
           description="Short, occasional writing on craft, materials and the philosophy behind what we make."

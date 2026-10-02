@@ -21,12 +21,14 @@ export function SectionHeading({
   description,
   align = 'left',
   className,
+  as: Heading = 'h2',
 }: {
   eyebrow?: string
   title: string
   description?: string
   align?: 'left' | 'center'
   className?: string
+  as?: 'h1' | 'h2'
 }) {
   return (
     <div
@@ -42,9 +44,9 @@ export function SectionHeading({
         </Reveal>
       )}
       <Reveal delay={0.05}>
-        <h2 className="mt-5 font-serif text-4xl leading-[1.05] text-balance md:text-5xl lg:text-6xl">
+        <Heading className="mt-5 font-serif text-4xl leading-[1.05] text-balance md:text-5xl lg:text-6xl">
           {title}
-        </h2>
+        </Heading>
       </Reveal>
       {description && (
         <Reveal delay={0.1}>

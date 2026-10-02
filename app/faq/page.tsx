@@ -37,6 +37,7 @@ export default function FaqPage() {
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-3xl px-5 md:px-10">
         <SectionHeading
+          as="h1"
           eyebrow="FAQ"
           title="Answers, before you have to ask."
           description="If you don't find what you need here, our contact page reaches a person, not a queue."

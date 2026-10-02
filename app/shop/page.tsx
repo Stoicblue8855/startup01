@@ -22,6 +22,7 @@ export default async function ShopPage({
     <div className="pt-28 md:pt-36">
       <div className="mx-auto max-w-[1400px] px-5 pb-20 md:px-10 md:pb-28">
         <SectionHeading
+          as="h1"
           eyebrow="The Collection"
           title="Every watch we make."
           description="Six pieces, four disciplines. Each one assembled by hand and finished to a standard we do not compromise on."
