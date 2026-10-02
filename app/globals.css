@@ -143,8 +143,8 @@
 }
 
 /* Sign-in gate: watch-dial frame */
-.gate-wrap{display:flex;min-height:75dvh;align-items:center;justify-content:center;padding:24px 16px}
-.gate-watch{container-type:inline-size;position:relative;width:min(100%,600px,78dvh);aspect-ratio:1}
+.gate-wrap{display:flex;min-height:100dvh;align-items:center;justify-content:center;padding:96px 16px 32px}
+.gate-watch{container-type:inline-size;position:relative;width:min(100%,600px,calc(100dvh - 140px));aspect-ratio:1}
 .gate-watch svg{position:absolute;inset:0;width:100%;height:100%}
 .gate-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24%}
 .gate-title{font-weight:700;color:var(--foreground);font-size:clamp(30px,7cqw,44px);line-height:1.05;margin:0 0 .5em;text-wrap:balance}
@@ -158,8 +158,8 @@
 .gate-hand-s{transition:transform .22s cubic-bezier(.3,1.6,.5,1)}
 @media (prefers-reduced-motion:reduce){.gate-hand-s{transition:none}}
 @media (max-width:560px){
-  .gate-wrap{align-items:flex-start;padding-top:32px}
-  .gate-watch{width:min(86vw,360px);aspect-ratio:auto}
+  .gate-wrap{padding:84px 16px 32px}
+  .gate-watch{width:min(86vw,340px);aspect-ratio:auto}
   .gate-watch svg{position:static;height:auto;aspect-ratio:1}
   .gate-content{position:static;padding:0;margin-top:24px}
   .gate-hand-h,.gate-hand-m,.gate-hand-s,.gate-cap{opacity:1}

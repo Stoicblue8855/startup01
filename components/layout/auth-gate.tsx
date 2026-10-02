@@ -95,11 +95,16 @@ function SignInRequired({ redirectTo }: { redirectTo: string }) {
             <line key={t.i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke="var(--gold)" strokeLinecap="round" strokeWidth={t.major ? 3 : 1.2} />
           ))}
           <path id="gate-ring" d="M88,300 a212,212 0 1,1 424,0 a212,212 0 1,1 -424,0" fill="none" />
-          <text fill="var(--gold)" style={{ fontFamily: dialFont.style.fontFamily, fontWeight: 600, fontSize: 15, letterSpacing: '0.12em' }}>
-            <textPath href="#gate-ring" textLength="1318" lengthAdjust="spacing">
-              SamayChakkra ◆ SamayChakkra ◆ SamayChakkra ◆{' '}
-            </textPath>
+          <text fill="var(--gold)" textAnchor="middle" style={{ fontFamily: dialFont.style.fontFamily, fontWeight: 700, fontSize: 17, letterSpacing: '0.3em' }}>
+            {['12.5%', '37.5%', '62.5%', '87.5%'].map((o) => (
+              <textPath key={o} href="#gate-ring" startOffset={o}>
+                SamayChakkra
+              </textPath>
+            ))}
           </text>
+          {[[300, 88], [512, 300], [300, 512], [88, 300]].map(([x, y]) => (
+            <rect key={`${x}-${y}`} x={x - 4} y={y - 4} width="8" height="8" fill="var(--gold)" transform={`rotate(45 ${x} ${y})`} />
+          ))}
           <circle cx="300" cy="300" r="190" fill="none" style={{ stroke: 'color-mix(in oklab, var(--gold) 35%, transparent)' }} strokeWidth="1" />
           <g className="gate-hand gate-hand-h" ref={hourRef}>
             <line x1="300" y1="318" x2="300" y2="160" stroke="var(--foreground)" strokeWidth="7" strokeLinecap="round" />
