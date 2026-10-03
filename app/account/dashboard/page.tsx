@@ -1,25 +1,19 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/account/auth-context'
 import { AccountDashboard } from '@/components/account/dashboard'
+import { RequireSignIn } from '@/components/layout/auth-gate'
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth()
-  const router = useRouter()
+  return (
+    <RequireSignIn redirectTo="/account/dashboard">
+      <DashboardContent />
+    </RequireSignIn>
+  )
+}
 
-  useEffect(() => {
-    if (!loading && !user) router.replace('/account')
-  }, [loading, user, router])
-
-  if (loading || !user) {
-    return (
-      <div className="flex min-h-[70dvh] items-center justify-center">
-        <span className="size-6 animate-spin rounded-full border-2 border-border border-t-gold" />
-      </div>
-    )
-  }
-
+function DashboardContent() {
+  const { user } = useAuth()
+  if (!user) return null
   return <AccountDashboard user={user} />
 }
