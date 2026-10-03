@@ -46,6 +46,29 @@ export function AuthGate({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
+/**
+ * Wraps a page (or part of one) that needs a signed-in customer. Signed-out
+ * visitors see the "Sign in to continue" screen instead of the content, and
+ * come back to `redirectTo` after signing in.
+ */
+export function RequireSignIn({ redirectTo, children }: { redirectTo: string; children: ReactNode }) {
+  const { user, loading, configured } = useAuth()
+
+  if (!configured) return <>{children}</>
+
+  if (loading) {
+    return (
+      <div className="flex min-h-[70dvh] items-center justify-center">
+        <span className="size-6 animate-spin rounded-full border-2 border-border border-t-gold" />
+      </div>
+    )
+  }
+
+  if (!user) return <SignInRequired redirectTo={redirectTo} />
+
+  return <>{children}</>
+}
+
 const TICKS = Array.from({ length: 60 }).map((_, i) => {
   const major = i % 5 === 0
   const a = (i * 6 * Math.PI) / 180

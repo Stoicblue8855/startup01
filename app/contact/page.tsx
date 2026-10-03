@@ -3,6 +3,7 @@ import { getSiteSettings } from '@/lib/content'
 import { SectionHeading } from '@/components/common/section-heading'
 import { ContactForm } from '@/components/contact/contact-form'
 import { Reveal } from '@/components/motion/reveal'
+import { RequireSignIn } from '@/components/layout/auth-gate'
 
 export const revalidate = 60
 
@@ -20,7 +21,7 @@ export default async function ContactPage({
   const settings = await getSiteSettings()
   const isAccount = intent === 'account'
 
-  return (
+  const page = (
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
@@ -63,4 +64,10 @@ export default async function ContactPage({
       </div>
     </div>
   )
+
+  // Placing an order needs a signed-in customer; everything else on this page is public.
+  if (intent === 'order') {
+    return <RequireSignIn redirectTo="/contact?intent=order">{page}</RequireSignIn>
+  }
+  return page
 }
