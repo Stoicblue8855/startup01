@@ -84,7 +84,7 @@ export function CartDrawer() {
               Complimentary insured delivery and a five-year warranty on every piece.
             </p>
             <LuxButton
-              href="/contact?intent=order"
+              href="/order"
               variant="solid"
               className="w-full"
               magnetic={false}

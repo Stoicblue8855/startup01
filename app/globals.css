@@ -165,3 +165,14 @@
   .gate-content{position:static;padding:0;margin-top:24px}
   .gate-hand-h,.gate-hand-m,.gate-hand-s,.gate-cap{opacity:1}
 }
+
+/* Order page: WhatsApp badge pushing out payment apps */
+.pay-stage{position:relative;height:124px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;overflow:hidden}
+.pay-badge{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:999px;background:#25D366;box-shadow:0 0 0 0 rgba(37,211,102,.45);animation:pay-pulse 3.6s ease-out infinite}
+.pay-chip{position:absolute;z-index:1;display:inline-flex;align-items:center;bottom:38px;height:30px;padding:0 10px;border-radius:999px;background:#fff;border:1px solid rgba(0,0,0,.08);box-shadow:0 4px 14px rgba(0,0,0,.12);font-weight:700;font-size:12px;white-space:nowrap;opacity:0;transform:translate(0,0) scale(.5);animation:pay-out 3.6s cubic-bezier(.22,1,.36,1) infinite}
+.pay-chip-1{--x:-70px;--y:-6px;animation-delay:0s}
+.pay-chip-2{--x:70px;--y:-6px;animation-delay:.25s}
+.pay-chip-3{--x:0px;--y:-34px;animation-delay:.5s}
+@keyframes pay-out{0%{opacity:0;transform:translate(0,0) scale(.5)}18%{opacity:1}30%,72%{opacity:1;transform:translate(var(--x),var(--y)) scale(1)}90%,100%{opacity:0;transform:translate(calc(var(--x)*1.15),calc(var(--y)*1.15)) scale(.95)}}
+@keyframes pay-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}70%,100%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
+@media (prefers-reduced-motion:reduce){.pay-chip{animation:none;opacity:1;transform:translate(var(--x),var(--y)) scale(1)}.pay-badge{animation:none}}

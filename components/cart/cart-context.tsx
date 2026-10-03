@@ -37,6 +37,7 @@ interface CartState {
   addToCart: (line: Omit<CartLine, 'quantity'>, quantity?: number) => void
   removeFromCart: (slug: string, strap: string, size: string) => void
   updateQuantity: (slug: string, strap: string, size: string, quantity: number) => void
+  clearCart: () => void
   toggleWishlist: (item: WishlistItem) => void
   isWishlisted: (slug: string) => boolean
   setCartOpen: (open: boolean) => void
@@ -138,6 +139,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [],
   )
 
+  const clearCart = useCallback(() => setLines([]), [])
+
   const toggleWishlist = useCallback<CartState['toggleWishlist']>((item) => {
     setWishlist((prev) =>
       prev.some((w) => w.slug === item.slug)
@@ -165,6 +168,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     addToCart,
     removeFromCart,
     updateQuantity,
+    clearCart,
     toggleWishlist,
     isWishlisted,
     setCartOpen,
