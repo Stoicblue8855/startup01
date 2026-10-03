@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Search, X } from 'lucide-react'
 import { products } from '@/lib/products'
-import { formatPrice } from '@/lib/format'
+import { Price } from '@/components/common/price'
 import { useScrollLock } from '@/lib/scroll-lock'
 
 export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -93,7 +93,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
                         </p>
                       </div>
                       <span className="text-sm tabular-nums text-muted-foreground">
-                        {formatPrice(p.price, p.currency)}
+                        <Price value={p.price} currency={p.currency} />
                       </span>
                     </Link>
                   </li>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Heart } from 'lucide-react'
 import type { Product } from '@/lib/types'
-import { formatPrice } from '@/lib/format'
+import { Price } from '@/components/common/price'
 import { cn } from '@/lib/utils'
 import { useCart } from '@/components/cart/cart-context'
 
@@ -110,7 +110,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
           </p>
         </div>
         <span className="shrink-0 pt-1 text-sm tabular-nums text-muted-foreground">
-          {formatPrice(product.price, product.currency)}
+          <Price value={product.price} currency={product.currency} />
         </span>
       </div>
     </motion.article>

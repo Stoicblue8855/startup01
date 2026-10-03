@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Heart, Minus, Plus, X } from 'lucide-react'
 import { type ReactNode } from 'react'
 import { useCart } from './cart-context'
-import { formatPrice } from '@/lib/format'
+import { Price } from '@/components/common/price'
 import { LuxButton } from '@/components/brand/lux-button'
 import { useScrollLock } from '@/lib/scroll-lock'
 
@@ -78,7 +78,7 @@ export function CartDrawer() {
           <div className="space-y-4">
             <div className="flex items-center justify-between text-sm">
               <span className="uppercase tracking-wide-luxe text-muted-foreground">Subtotal</span>
-              <span className="font-serif text-lg">{formatPrice(cartTotal)}</span>
+              <span className="font-serif text-lg"><Price value={cartTotal} /></span>
             </div>
             <p className="text-xs text-muted-foreground">
               Complimentary insured delivery and a five-year warranty on every piece.
@@ -146,7 +146,7 @@ export function CartDrawer() {
                       <Plus className="size-3" />
                     </button>
                   </div>
-                  <span className="text-sm tabular-nums">{formatPrice(l.price * l.quantity)}</span>
+                  <span className="text-sm tabular-nums"><Price value={l.price * l.quantity} /></span>
                 </div>
               </div>
             </li>
@@ -198,7 +198,7 @@ export function WishlistDrawer() {
                       {w.name}
                     </Link>
                     <p className="mt-1 text-sm tabular-nums text-muted-foreground">
-                      {formatPrice(w.price)}
+                      <Price value={w.price} />
                     </p>
                   </div>
                   <button

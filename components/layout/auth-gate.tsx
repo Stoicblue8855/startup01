@@ -2,7 +2,7 @@
 
 import { type ReactNode, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Cormorant_Garamond } from 'next/font/google'
 import { useAuth } from '@/components/account/auth-context'
 
@@ -84,7 +84,7 @@ const TICKS = Array.from({ length: 60 }).map((_, i) => {
   }
 })
 
-function SignInRequired({ redirectTo }: { redirectTo: string }) {
+export function SignInRequired({ redirectTo }: { redirectTo: string }) {
   const href = redirectTo && redirectTo !== '/' ? `/account?redirect=${encodeURIComponent(redirectTo)}` : '/account'
   const hourRef = useRef<SVGGElement>(null)
   const minRef = useRef<SVGGElement>(null)
@@ -149,11 +149,14 @@ function SignInRequired({ redirectTo }: { redirectTo: string }) {
         </svg>
 
         <div className="gate-content">
-          <h1 id="gate-title" className="gate-title" style={{ fontFamily: dialFont.style.fontFamily }}>
+          <h1 id="gate-title" className="gate-title">
             Sign in to continue
           </h1>
           <p className="gate-text">
-            SamayChakkra is open to invited members. Sign in with Google or email to browse the collection.
+            Sign in with Google or email to view prices, add watches to your cart and place orders.
+          </p>
+          <p className="gate-text gate-text-sub">
+            New to SamayChakkra? Your account is created automatically the first time you sign in.
           </p>
           <Link href={href} className="gate-btn">
             Sign in
@@ -162,4 +165,24 @@ function SignInRequired({ redirectTo }: { redirectTo: string }) {
       </main>
     </div>
   )
+}
+
+/** Full-page version used by /sign-in: signed-in visitors continue straight to where they were going. */
+export function SignInPage({ redirectTo }: { redirectTo: string }) {
+  const { user, loading, configured } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && user) router.replace(redirectTo)
+  }, [loading, user, router, redirectTo])
+
+  if (!configured || loading || user) {
+    return (
+      <div className="flex min-h-[70dvh] items-center justify-center">
+        <span className="size-6 animate-spin rounded-full border-2 border-border border-t-gold" />
+      </div>
+    )
+  }
+
+  return <SignInRequired redirectTo={redirectTo} />
 }

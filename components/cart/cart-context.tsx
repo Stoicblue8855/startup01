@@ -9,6 +9,8 @@ import {
   useMemo,
   useState,
 } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/components/account/auth-context'
 
 export interface CartLine {
   slug: string
@@ -58,6 +60,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cartOpen, setCartOpen] = useState(false)
   const [wishlistOpen, setWishlistOpen] = useState(false)
   const [hydrated, setHydrated] = useState(false)
+  const router = useRouter()
+  const { user, loading, configured } = useAuth()
 
   useEffect(() => {
     try {
@@ -84,8 +88,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('brand-wishlist', JSON.stringify(wishlist))
   }, [wishlist, hydrated])
 
-  const addToCart = useCallback<CartState['addToCart']>((line, quantity = 1) => {
-    setLines((prev) => {
+  const addToCart = useCallback<CartState['addToCart']>(
+    (line, quantity = 1) => {
+      // Only signed-in customers can add to the cart; everyone else is sent to
+      // the sign-in screen and returned to this page afterwards.
+      if (configured) {
+        if (loading) return
+        if (!user) {
+          const here = window.location.pathname + window.location.search
+          router.push(`/sign-in?redirect=${encodeURIComponent(here)}`)
+          return
+        }
+      }
+      setLines((prev) => {
       const key = lineKey(line.slug, line.strap, line.size)
       const existing = prev.find((l) => lineKey(l.slug, l.strap, l.size) === key)
       if (existing) {
@@ -98,7 +113,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [...prev, { ...line, quantity }]
     })
     setCartOpen(true)
-  }, [])
+    },
+    [configured, loading, user, router],
+  )
 
   const removeFromCart = useCallback<CartState['removeFromCart']>((slug, strap, size) => {
     setLines((prev) =>

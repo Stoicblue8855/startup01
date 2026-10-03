@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { Heart } from 'lucide-react'
 import type { Product } from '@/lib/types'
-import { formatPrice } from '@/lib/format'
+import { Price } from '@/components/common/price'
 import { cn } from '@/lib/utils'
 import { useCart } from '@/components/cart/cart-context'
 import { LuxButton } from '@/components/brand/lux-button'
@@ -62,7 +62,7 @@ export function ProductDetail({ product }: { product: Product }) {
         <Reveal>
           <p className="text-xs uppercase tracking-wide-luxe text-gold">{product.reference}</p>
           <h1 className="mt-3 font-serif text-4xl leading-[1.05] text-balance md:text-5xl">{product.name}</h1>
-          <p className="mt-4 text-2xl tabular-nums text-foreground">{formatPrice(product.price, product.currency)}</p>
+          <p className="mt-4 text-2xl tabular-nums text-foreground"><Price value={product.price} currency={product.currency} /></p>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">{product.description}</p>
         </Reveal>
 

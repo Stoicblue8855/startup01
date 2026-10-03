@@ -54,12 +54,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             description: product.shortDescription,
             sku: product.reference,
             brand: { '@type': 'Brand', name: 'SamayChakkra' },
-            offers: {
-              '@type': 'Offer',
-              priceCurrency: product.currency,
-              price: product.price,
-              availability: 'https://schema.org/InStock',
-            },
           }).replace(/</g, '\\u003c'),
         }}
       />

@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import type { Product } from '@/lib/types'
-import { formatPrice } from '@/lib/format'
+import { Price } from '@/components/common/price'
 import { LuxButton } from '@/components/brand/lux-button'
 import { Float } from '@/components/motion/float'
 
@@ -66,7 +66,7 @@ export function SignatureSpotlight({ product }: { product: Product }) {
             <LuxButton href={`/product/${product.slug}`} variant="solid">
               Discover the piece
             </LuxButton>
-            <span className="font-serif text-xl">{formatPrice(product.price, product.currency)}</span>
+            <span className="font-serif text-xl"><Price value={product.price} currency={product.currency} /></span>
           </div>
         </motion.div>
       </div>
