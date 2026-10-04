@@ -10,10 +10,10 @@ export function Logo({
   showText?: boolean
 }) {
   return (
-    <span className={cn('inline-flex items-center gap-2.5', className)}>
+    <span className={cn('inline-flex items-center gap-2.5 max-[339px]:gap-2', className)}>
       <LogoMark className="size-7 text-gold" />
       {showText && (
-        <span className="font-sans text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+        <span className="font-sans text-xl font-semibold tracking-tight text-foreground max-[389px]:text-lg max-[339px]:text-base md:text-2xl">
           {siteSettings.brandName}
         </span>
       )}

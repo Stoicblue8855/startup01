@@ -33,9 +33,9 @@ export default function CareersPage() {
             <Eyebrow>Open roles</Eyebrow>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {openings.map((o) => (
-                <li key={o.role} className="flex items-center justify-between gap-4 py-5">
+                <li key={o.role} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5">
                   <span className="font-serif text-lg">{o.role}</span>
-                  <span className="shrink-0 text-xs uppercase tracking-wide-luxe text-muted-foreground">
+                  <span className="text-xs uppercase tracking-wide-luxe text-muted-foreground">
                     {o.location}
                   </span>
                 </li>

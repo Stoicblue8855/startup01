@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { cloneElement, useId, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { LuxButton } from '@/components/brand/lux-button'
@@ -108,11 +108,12 @@ export function ContactForm({ defaultTopic = 'General enquiry' }: { defaultTopic
   )
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({ label, error, children }: { label: string; error?: string; children: React.ReactElement<{ id?: string }> }) {
+  const id = useId()
   return (
     <div>
-      <label className="text-xs uppercase tracking-wide-luxe text-muted-foreground">{label}</label>
-      <div className="mt-2">{children}</div>
+      <label htmlFor={id} className="text-xs uppercase tracking-wide-luxe text-muted-foreground">{label}</label>
+      <div className="mt-2">{cloneElement(children, { id })}</div>
       <AnimatePresence>
         {error && (
           <motion.p

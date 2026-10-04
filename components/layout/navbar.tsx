@@ -59,10 +59,10 @@ export function Navbar() {
           solid ? 'border-border bg-background/90' : 'border-border/40',
         )}
       >
-        <nav className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-5 md:h-20 md:px-10">
-          <div className="flex items-center gap-3">
+        <nav className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-5 max-[389px]:px-4 md:h-20 md:px-10">
+          <div className="flex items-center gap-3 max-[389px]:gap-2">
             <button
-              className="text-foreground transition-colors hover:text-gold lg:hidden"
+              className="relative text-foreground transition-colors before:absolute before:-inset-2 before:content-[''] hover:text-gold lg:hidden"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -85,7 +85,7 @@ export function Navbar() {
             ))}
           </div>
 
-          <div className="flex items-center gap-4 md:gap-5">
+          <div className="flex items-center gap-4 max-[389px]:gap-3 max-[339px]:gap-2 md:gap-5">
             <IconButton label="Search" onClick={() => setSearchOpen(true)}>
               <Search className="size-[18px]" />
             </IconButton>
@@ -180,11 +180,11 @@ function IconButton({
   return (
     <Magnetic strength={0.4}>
       {href ? (
-        <Link href={href} aria-label={label}>
+        <Link href={href} aria-label={label} className="relative block before:absolute before:-inset-2 before:content-['']">
           {inner}
         </Link>
       ) : (
-        <button onClick={onClick} aria-label={label}>
+        <button onClick={onClick} aria-label={label} className="relative block before:absolute before:-inset-2 before:content-['']">
           {inner}
         </button>
       )}

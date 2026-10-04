@@ -31,7 +31,7 @@ export function Price({
       aria-label="Sign in to view price"
       title="Sign in to view price"
     >
-      {formatPrice(8888888, currency)}
+      {formatPrice(8888, currency)}
     </span>
   )
 }

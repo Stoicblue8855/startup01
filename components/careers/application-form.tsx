@@ -58,8 +58,9 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-6">
       <div>
-        <label className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Full name</label>
+        <label htmlFor="app-name" className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Full name</label>
         <input
+          id="app-name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="mt-2 w-full border-b border-border bg-transparent py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-gold focus:outline-none"
@@ -69,8 +70,9 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
       </div>
 
       <div>
-        <label className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Email address</label>
+        <label htmlFor="app-email" className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Email address</label>
         <input
+          id="app-email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
@@ -81,8 +83,9 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
       </div>
 
       <div>
-        <label className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Role</label>
+        <label htmlFor="app-role" className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Role</label>
         <select
+          id="app-role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
           className="mt-2 w-full cursor-pointer border-b border-border bg-transparent py-3 text-foreground focus:border-gold focus:outline-none"
@@ -96,8 +99,9 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
       </div>
 
       <div>
-        <label className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Why you?</label>
+        <label htmlFor="app-cover" className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Why you?</label>
         <textarea
+          id="app-cover"
           value={cover}
           onChange={(e) => setCover(e.target.value)}
           rows={5}
