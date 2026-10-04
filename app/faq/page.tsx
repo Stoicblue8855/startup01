@@ -6,7 +6,7 @@ export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'FAQ',
-  description: 'Answers on ordering, sizing, warranty, service and our policies.',
+  description: 'Answers on ordering, delivery, payment and our policies.',
 }
 
 const faqs = [
@@ -16,11 +16,11 @@ const faqs = [
   },
   {
     q: 'Can I return or exchange a watch?',
-    a: 'Yes — unworn pieces in original packaging may be returned within 14 days of delivery for a full refund, or exchanged for a different size or strap at any time within that window.',
+    a: 'No. All sales are final — we do not accept returns, exchanges or refunds, and watches are sold without warranty. Please review your selection carefully before placing your order.',
   },
   {
-    q: 'How long does delivery take?',
-    a: 'Standard delivery is 3–5 business days, insured door to door. Store pickup options are shown at checkout where available.',
+    q: 'Where do you deliver, and what does delivery cost?',
+    a: 'We deliver all over India. Delivery charges depend on the distance and are added at the end of your order booking. You can pay online through our WhatsApp chat or choose cash on delivery.',
   },
   {
     q: 'Do you service watches you did not sell?',
@@ -57,13 +57,13 @@ export default function FaqPage() {
           ))}
         </div>
 
-        <div id="warranty" className="mt-24 scroll-mt-28">
-          <Eyebrow>Warranty &amp; Service</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl">Two years, unconditionally.</h2>
+        <div id="policy" className="mt-24 scroll-mt-28">
+          <Eyebrow>Warranty &amp; Returns</Eyebrow>
+          <h2 className="mt-5 font-serif text-3xl">No warranty. No returns.</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Every watch carries a two-year international warranty against manufacturing defects, plus a
-            complimentary first service. Warranty does not cover water damage from unrated exposure, accidental
-            impact, or unauthorised repair. Register your piece with us to enable global service history.
+            All watches are sold as they are, without any warranty, and every sale is final. We do not accept
+            returns, exchanges or refunds. Please check the product details and your selection carefully before you
+            place your order. If you have any question before buying, our team is available 24/7.
           </p>
         </div>
 
@@ -71,9 +71,9 @@ export default function FaqPage() {
           <Eyebrow>Terms of Sale</Eyebrow>
           <h2 className="mt-5 font-serif text-3xl">The short version.</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Prices are shown in your selected currency and include applicable duties for the country of delivery
-            unless stated otherwise. Orders may be cancelled free of charge before dispatch. Full terms are provided
-            at checkout and available on request.
+            Prices are in Indian rupees. Delivery charges depend on the distance and are added at the end of your
+            order booking. All watches are sold without warranty, and all sales are final with no returns, exchanges
+            or refunds. Full terms are available on request.
           </p>
         </div>
 
@@ -81,7 +81,7 @@ export default function FaqPage() {
           <Eyebrow>Privacy</Eyebrow>
           <h2 className="mt-5 font-serif text-3xl">What we keep, and why.</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            We collect only what is needed to fulfil an order, maintain a warranty record, or send correspondence you
+            We collect only what is needed to fulfil an order or send correspondence you
             have asked for. We do not sell personal data. You may request a copy or deletion of your data at any
             time by writing to us.
           </p>

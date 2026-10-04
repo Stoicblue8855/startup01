@@ -51,7 +51,7 @@ export const siteSettings: SiteSettings = {
       links: [
         { label: 'Contact', href: '/contact' },
         { label: 'FAQ', href: '/faq' },
-        { label: 'Warranty & Service', href: '/faq#warranty' },
+        { label: 'Warranty & Returns', href: '/faq#policy' },
       ],
     },
     {

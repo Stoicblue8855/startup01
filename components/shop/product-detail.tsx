@@ -143,12 +143,12 @@ export function ProductDetail({ product }: { product: Product }) {
 
         <details className="group mt-4 border-t border-border pt-6">
           <summary className="flex cursor-pointer items-center justify-between text-xs uppercase tracking-wide-luxe text-foreground">
-            Delivery &amp; warranty
+            Delivery &amp; policy
             <span className="text-muted-foreground transition-transform group-open:rotate-45">+</span>
           </summary>
           <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-            Every piece ships insured, in atelier packaging, with a two-year international warranty and complimentary
-            first service. Delivery typically takes 3–5 business days.
+            We deliver all over India. Delivery charges depend on the distance and are added at the end of your order
+            booking. All watches are sold without warranty, and all sales are final — no returns.
           </p>
         </details>
       </div>

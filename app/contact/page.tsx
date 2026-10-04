@@ -9,7 +9,7 @@ export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Reach the house directly — general enquiries, orders, warranty and press.',
+  description: 'Reach the house directly — general enquiries, orders and press.',
 }
 
 export default async function ContactPage({
@@ -31,7 +31,7 @@ export default async function ContactPage({
           description={
             isAccount
               ? 'We keep accounts by hand, through a member of the house — no passwords to lose. Tell us what you need and we will take it from here.'
-              : 'For orders, warranty, press or simply a question — write to us directly and we will get back to you.'
+              : 'For orders, press or simply a question — write to us directly and we will get back to you.'
           }
         />
 

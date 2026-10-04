@@ -85,7 +85,7 @@ export function ContactForm({ defaultTopic = 'General enquiry' }: { defaultTopic
           onChange={(e) => setTopic(e.target.value)}
           className="w-full cursor-pointer border-b border-border bg-transparent py-3 text-foreground focus:border-gold focus:outline-none"
         >
-          {['General enquiry', 'My account', 'An order', 'Warranty & service', 'Press', 'Careers'].map((t) => (
+          {['General enquiry', 'My account', 'An order', 'Delivery & payment', 'Press', 'Careers'].map((t) => (
             <option key={t} className="bg-card text-foreground">
               {t}
             </option>

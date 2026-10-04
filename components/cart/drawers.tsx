@@ -81,7 +81,7 @@ export function CartDrawer() {
               <span className="font-serif text-lg"><Price value={cartTotal} /></span>
             </div>
             <p className="text-xs text-muted-foreground">
-              Complimentary insured delivery and a five-year warranty on every piece.
+              No warranty. No returns. Delivery charges are added at the end of your order booking.
             </p>
             <LuxButton
               href="/order"
