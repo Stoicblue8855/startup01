@@ -20,7 +20,7 @@ export const siteSettings: SiteSettings = {
   email: 'concierge@samaychakkra.com',
   phone: '+91 22 6155 0180',
   socials: [
-    { label: 'Instagram', href: 'https://instagram.com' },
+    { label: 'Instagram', href: 'https://www.instagram.com/samay.chakkra' },
     { label: 'YouTube', href: 'https://youtube.com' },
     { label: 'LinkedIn', href: 'https://linkedin.com' },
   ],
