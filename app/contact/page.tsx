@@ -52,7 +52,7 @@ export default async function ContactPage({
               </div>
               <div>
                 <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Hours</p>
-                <p className="mt-2 text-base text-muted-foreground">Our team is available 24/7</p>
+                <p className="mt-2 text-base text-muted-foreground">{settings.contactHours}</p>
               </div>
             </div>
           </Reveal>

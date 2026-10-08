@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
+import { getFaqs, getPolicySections } from '@/lib/content'
 
 export const revalidate = 60
 
@@ -9,30 +10,8 @@ export const metadata: Metadata = {
   description: 'Answers on ordering, delivery, payment and our policies.',
 }
 
-const faqs = [
-  {
-    q: 'How do I find the right case size?',
-    a: 'Measure your wrist just below the bone with a soft tape or strip of paper. Most of our dress watches suit wrists 15–18cm; sport models are built for 16–20cm. Our support team is also happy to advise by phone.',
-  },
-  {
-    q: 'Can I return or exchange a watch?',
-    a: 'No. All sales are final — we do not accept returns, exchanges or refunds, and watches are sold without warranty. Please review your selection carefully before placing your order.',
-  },
-  {
-    q: 'Where do you deliver, and what does delivery cost?',
-    a: 'We deliver all over India. Delivery charges depend on the distance and are added at the end of your order booking. You can pay online through our WhatsApp chat or choose cash on delivery.',
-  },
-  {
-    q: 'Do you service watches you did not sell?',
-    a: 'Our workshops primarily service house watches, but we do accept vintage pieces from the archive on a case-by-case basis. Contact us with photographs and a reference number if known.',
-  },
-  {
-    q: 'How often should a watch be serviced?',
-    a: 'We recommend a full service every 5–7 years for automatic movements, and sooner if you notice a loss of accuracy or moisture under the crystal.',
-  },
-]
-
-export default function FaqPage() {
+export default async function FaqPage() {
+  const [faqs, policies] = await Promise.all([getFaqs(), getPolicySections()])
   return (
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-3xl px-5 md:px-10">
@@ -57,45 +36,13 @@ export default function FaqPage() {
           ))}
         </div>
 
-        <div id="policy" className="mt-24 scroll-mt-28">
-          <Eyebrow>Warranty &amp; Returns</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl">No warranty. No returns.</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            All watches are sold as they are, without any warranty, and every sale is final. We do not accept
-            returns, exchanges or refunds. Please check the product details and your selection carefully before you
-            place your order. If you have any question before buying, our team is available 24/7.
-          </p>
-        </div>
-
-        <div id="terms" className="mt-16 scroll-mt-28">
-          <Eyebrow>Terms of Sale</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl">The short version.</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Prices are in Indian rupees. Delivery charges depend on the distance and are added at the end of your
-            order booking. All watches are sold without warranty, and all sales are final with no returns, exchanges
-            or refunds. Full terms are available on request.
-          </p>
-        </div>
-
-        <div id="privacy" className="mt-16 scroll-mt-28">
-          <Eyebrow>Privacy</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl">What we keep, and why.</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            We collect only what is needed to fulfil an order or send correspondence you
-            have asked for. We do not sell personal data. You may request a copy or deletion of your data at any
-            time by writing to us.
-          </p>
-        </div>
-
-        <div id="accessibility" className="mt-16 scroll-mt-28">
-          <Eyebrow>Accessibility</Eyebrow>
-          <h2 className="mt-5 font-serif text-3xl">Built to be used by everyone.</h2>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            We aim to meet WCAG 2.1 AA standards across this site. If you encounter a barrier using a screen reader,
-            keyboard navigation, or any assistive technology, please tell us — we treat these reports as priority
-            fixes, not feedback for later.
-          </p>
-        </div>
+        {policies.map((p, i) => (
+          <div key={p.slug} id={p.slug} className={i === 0 ? 'mt-24 scroll-mt-28' : 'mt-16 scroll-mt-28'}>
+            <Eyebrow>{p.eyebrow}</Eyebrow>
+            <h2 className="mt-5 font-serif text-3xl">{p.title}</h2>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">{p.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   )

@@ -40,6 +40,7 @@ const tabs: { id: Tab; label: string; icon: typeof UserIcon }[] = [
 
 const statusStyles: Record<string, string> = {
   processing: 'bg-gold/10 text-gold border-gold/30',
+  confirmed: 'bg-gold/10 text-gold border-gold/30',
   shipped: 'bg-blue-500/10 text-blue-700 border-blue-500/30',
   delivered: 'bg-green-600/10 text-green-700 border-green-600/30',
   cancelled: 'bg-destructive/10 text-destructive border-destructive/30',
@@ -63,7 +64,7 @@ interface OrderItem {
 interface Order {
   id: string
   order_number: string
-  status: 'processing' | 'shipped' | 'delivered' | 'cancelled'
+  status: 'processing' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'
   total: number
   currency: string
   created_at: string

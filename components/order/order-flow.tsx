@@ -28,7 +28,21 @@ interface Placed {
 const inputClass =
   'w-full border-b border-border bg-transparent py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-gold focus:outline-none'
 
-export function OrderFlow() {
+export interface OrderFlowProps {
+  whatsappNumber?: string
+  acceptingOrders?: boolean
+  closedMessage?: string
+  codEnabled?: boolean
+  whatsappEnabled?: boolean
+}
+
+export function OrderFlow({
+  whatsappNumber,
+  acceptingOrders = true,
+  closedMessage = 'We are not taking new orders right now. Please check back soon or message us on WhatsApp.',
+  codEnabled = true,
+  whatsappEnabled = true,
+}: OrderFlowProps) {
   const { user } = useAuth()
   const { lines, cartTotal, clearCart } = useCart()
 
@@ -39,7 +53,9 @@ export function OrderFlow() {
   const [state, setState] = useState('')
   const [postal, setPostal] = useState('')
   const [notes, setNotes] = useState('')
-  const [payment, setPayment] = useState<Payment | ''>('')
+  const [payment, setPayment] = useState<Payment | ''>(
+    codEnabled && !whatsappEnabled ? 'cod' : whatsappEnabled && !codEnabled ? 'whatsapp_online' : '',
+  )
   const [accepted, setAccepted] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [submitting, setSubmitting] = useState(false)
@@ -143,7 +159,7 @@ export function OrderFlow() {
       total,
       currency,
       payment,
-      whatsappUrl: whatsappLink(message),
+      whatsappUrl: whatsappLink(message, whatsappNumber),
     })
     clearCart()
   }
@@ -181,6 +197,20 @@ export function OrderFlow() {
           </LuxButton>
           <LuxButton href="/account/dashboard" variant="outline" magnetic={false}>
             View my orders
+          </LuxButton>
+        </div>
+      </div>
+    )
+  }
+
+  if (!acceptingOrders || (!codEnabled && !whatsappEnabled)) {
+    return (
+      <div className="mx-auto max-w-xl py-10 text-center">
+        <h1 className="font-serif text-3xl">Orders are paused.</h1>
+        <p className="mt-3 text-sm text-muted-foreground">{closedMessage}</p>
+        <div className="mt-8">
+          <LuxButton href={whatsappLink('Hello SamayChakkra!', whatsappNumber)} variant="outline" magnetic={false}>
+            Chat with us on WhatsApp
           </LuxButton>
         </div>
       </div>
@@ -264,6 +294,7 @@ export function OrderFlow() {
         <fieldset className="mt-10">
           <legend className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Payment</legend>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {whatsappEnabled && (
             <label
               className={cn(
                 'cursor-pointer border p-4 transition-colors',
@@ -277,6 +308,8 @@ export function OrderFlow() {
                 We will take you to our WhatsApp chat to complete your payment with our team.
               </span>
             </label>
+            )}
+            {codEnabled && (
             <label
               className={cn(
                 'flex cursor-pointer flex-col items-center justify-center border p-4 text-center transition-colors',
@@ -288,6 +321,7 @@ export function OrderFlow() {
               <span className="mt-3 block font-medium">Cash on delivery</span>
               <span className="mt-1 block text-xs text-muted-foreground">Pay in cash when your watch arrives.</span>
             </label>
+            )}
           </div>
           {errors.payment && <p className="mt-2 text-xs text-destructive">{errors.payment}</p>}
         </fieldset>

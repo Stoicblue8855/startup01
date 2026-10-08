@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
+import { getJobOpenings } from '@/lib/content'
 import { ApplicationForm } from '@/components/careers/application-form'
 
 export const revalidate = 60
@@ -10,14 +11,8 @@ export const metadata: Metadata = {
   description: 'Join the atelier — open roles in watchmaking, retail and design.',
 }
 
-const openings = [
-  { role: 'Watchmaker, Complications', location: 'Atelier · On-site' },
-  { role: 'Retail Specialist', location: 'Mumbai · On-site' },
-  { role: 'Case & Bracelet Polisher', location: 'Atelier · On-site' },
-  { role: 'Product Photographer', location: 'Remote · Contract' },
-]
-
-export default function CareersPage() {
+export default async function CareersPage() {
+  const openings = await getJobOpenings()
   return (
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">

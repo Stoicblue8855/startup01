@@ -15,6 +15,14 @@ import { getSupabaseClient } from './supabase'
  */
 
 export const siteSettings: SiteSettings = {
+  whatsappNumber: '918855017033',
+  contactHours: 'Our team is available 24/7',
+  acceptingOrders: true,
+  ordersClosedMessage:
+    'We are not taking new orders right now. Please check back soon or message us on WhatsApp.',
+  codEnabled: true,
+  whatsappPaymentEnabled: true,
+  requireSigninForPrices: true,
   brandName: 'SamayChakkra',
   tagline: 'Time, made to be inherited.',
   email: 'concierge@samaychakkra.com',
@@ -243,6 +251,13 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         currencies: data.currencies ?? [],
         languages: data.languages ?? [],
         footer: data.footer ?? [],
+        whatsappNumber: data.whatsapp_number ?? siteSettings.whatsappNumber,
+        contactHours: data.contact_hours ?? siteSettings.contactHours,
+        acceptingOrders: data.accepting_orders ?? true,
+        ordersClosedMessage: data.orders_closed_message ?? siteSettings.ordersClosedMessage,
+        codEnabled: data.cod_enabled ?? true,
+        whatsappPaymentEnabled: data.whatsapp_payment_enabled ?? true,
+        requireSigninForPrices: data.require_signin_for_prices ?? true,
       }
     }
   }
@@ -318,4 +333,110 @@ export async function getJournalPostBySlug(slug: string): Promise<JournalPost | 
     if (data) return mapJournalPost(data)
   }
   return journalPosts.find((p) => p.slug === slug)
+}
+
+/* ------------------------ FAQ, policies and job openings ------------------------ */
+
+export interface FaqItem {
+  q: string
+  a: string
+}
+
+export interface PolicySection {
+  slug: string
+  eyebrow: string
+  title: string
+  body: string
+}
+
+export interface JobOpening {
+  role: string
+  location: string
+}
+
+export const fallbackFaqs: FaqItem[] = [
+  {
+    q: 'How do I find the right case size?',
+    a: 'Measure your wrist just below the bone with a soft tape or strip of paper. Most of our dress watches suit wrists 15–18cm; sport models are built for 16–20cm. Our support team is also happy to advise by phone.',
+  },
+  {
+    q: 'Can I return or exchange a watch?',
+    a: 'No. All sales are final — we do not accept returns, exchanges or refunds, and watches are sold without warranty. Please review your selection carefully before placing your order.',
+  },
+  {
+    q: 'Where do you deliver, and what does delivery cost?',
+    a: 'We deliver all over India. Delivery charges depend on the distance and are added at the end of your order booking. You can pay online through our WhatsApp chat or choose cash on delivery.',
+  },
+  {
+    q: 'Do you service watches you did not sell?',
+    a: 'Our workshops primarily service house watches, but we do accept vintage pieces from the archive on a case-by-case basis. Contact us with photographs and a reference number if known.',
+  },
+  {
+    q: 'How often should a watch be serviced?',
+    a: 'We recommend a full service every 5–7 years for automatic movements, and sooner if you notice a loss of accuracy or moisture under the crystal.',
+  },
+]
+
+export const fallbackPolicies: PolicySection[] = [
+  {
+    slug: 'policy',
+    eyebrow: 'Warranty & Returns',
+    title: 'No warranty. No returns.',
+    body: 'All watches are sold as they are, without any warranty, and every sale is final. We do not accept returns, exchanges or refunds. Please check the product details and your selection carefully before you place your order. If you have any question before buying, our team is available 24/7.',
+  },
+  {
+    slug: 'terms',
+    eyebrow: 'Terms of Sale',
+    title: 'The short version.',
+    body: 'Prices are in Indian rupees. Delivery charges depend on the distance and are added at the end of your order booking. All watches are sold without warranty, and all sales are final with no returns, exchanges or refunds. Full terms are available on request.',
+  },
+  {
+    slug: 'privacy',
+    eyebrow: 'Privacy',
+    title: 'What we keep, and why.',
+    body: 'We collect only what is needed to fulfil an order or send correspondence you have asked for. We do not sell personal data. You may request a copy or deletion of your data at any time by writing to us.',
+  },
+  {
+    slug: 'accessibility',
+    eyebrow: 'Accessibility',
+    title: 'Built to be used by everyone.',
+    body: 'We aim to meet WCAG 2.1 AA standards across this site. If you encounter a barrier using a screen reader, keyboard navigation, or any assistive technology, please tell us — we treat these reports as priority fixes, not feedback for later.',
+  },
+]
+
+export const fallbackOpenings: JobOpening[] = [
+  { role: 'Watchmaker, Complications', location: 'Atelier · On-site' },
+  { role: 'Retail Specialist', location: 'Mumbai · On-site' },
+  { role: 'Case & Bracelet Polisher', location: 'Atelier · On-site' },
+  { role: 'Product Photographer', location: 'Remote · Contract' },
+]
+
+export async function getFaqs(): Promise<FaqItem[]> {
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data, error } = await supabase.from('faqs').select('question, answer').order('sort_order', { ascending: true })
+    if (!error && data) return data.map((r: any) => ({ q: r.question, a: r.answer }))
+  }
+  return fallbackFaqs
+}
+
+export async function getPolicySections(): Promise<PolicySection[]> {
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data, error } = await supabase
+      .from('policy_sections')
+      .select('slug, eyebrow, title, body')
+      .order('sort_order', { ascending: true })
+    if (!error && data) return data as PolicySection[]
+  }
+  return fallbackPolicies
+}
+
+export async function getJobOpenings(): Promise<JobOpening[]> {
+  const supabase = getSupabaseClient()
+  if (supabase) {
+    const { data, error } = await supabase.from('job_openings').select('role, location').order('sort_order', { ascending: true })
+    if (!error && data) return data.map((r: any) => ({ role: r.role, location: r.location ?? '' }))
+  }
+  return fallbackOpenings
 }

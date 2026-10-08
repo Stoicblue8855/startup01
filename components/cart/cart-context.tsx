@@ -11,6 +11,7 @@ import {
 } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/account/auth-context'
+import { useRequireSigninForPrices } from '@/lib/site-flags'
 
 export interface CartLine {
   slug: string
@@ -63,6 +64,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false)
   const router = useRouter()
   const { user, loading, configured } = useAuth()
+  const requireSignin = useRequireSigninForPrices()
 
   useEffect(() => {
     try {
@@ -93,7 +95,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     (line, quantity = 1) => {
       // Only signed-in customers can add to the cart; everyone else is sent to
       // the sign-in screen and returned to this page afterwards.
-      if (configured) {
+      if (configured && requireSignin) {
         if (loading) return
         if (!user) {
           const here = window.location.pathname + window.location.search
@@ -115,7 +117,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     })
     setCartOpen(true)
     },
-    [configured, loading, user, router],
+    [configured, requireSignin, loading, user, router],
   )
 
   const removeFromCart = useCallback<CartState['removeFromCart']>((slug, strap, size) => {

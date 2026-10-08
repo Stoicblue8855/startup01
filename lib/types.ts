@@ -126,4 +126,11 @@ export interface SiteSettings {
     heading: string
     links: { label: string; href: string }[]
   }[]
+  whatsappNumber?: string
+  contactHours?: string
+  acceptingOrders?: boolean
+  ordersClosedMessage?: string
+  codEnabled?: boolean
+  whatsappPaymentEnabled?: boolean
+  requireSigninForPrices?: boolean
 }

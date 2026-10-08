@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { LuxButton } from '@/components/brand/lux-button'
+import { getSupabaseClient } from '@/lib/supabase'
 
 interface Errors {
   name?: string
@@ -18,6 +19,8 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
   const [cover, setCover] = useState('')
   const [errors, setErrors] = useState<Errors>({})
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState('')
 
   function validate(): boolean {
     const next: Errors = {}
@@ -28,10 +31,22 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
     return Object.keys(next).length === 0
   }
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
+    setSendError('')
     if (!validate()) return
-    // SUPABASE: insert into `job_applications` (name, email, role, cover) here.
+    const supabase = getSupabaseClient()
+    if (supabase) {
+      setSending(true)
+      const { error } = await supabase
+        .from('job_applications')
+        .insert({ name: name.trim(), email: email.trim(), role, cover: cover.trim() })
+      setSending(false)
+      if (error) {
+        setSendError('We could not send your application. Please try again in a moment.')
+        return
+      }
+    }
     setSubmitted(true)
   }
 
@@ -111,7 +126,14 @@ export function ApplicationForm({ roles }: { roles: string[] }) {
         {errors.cover && <p className="mt-1 text-xs text-destructive">{errors.cover}</p>}
       </div>
 
-      <LuxButton type="submit">Submit application</LuxButton>
+      {sendError && (
+        <p role="alert" className="text-sm text-destructive">
+          {sendError}
+        </p>
+      )}
+      <LuxButton type="submit" disabled={sending}>
+        {sending ? 'Sending…' : 'Submit application'}
+      </LuxButton>
     </form>
   )
 }

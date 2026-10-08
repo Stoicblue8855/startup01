@@ -3,6 +3,7 @@
 import { useAuth } from '@/components/account/auth-context'
 import { cn } from '@/lib/utils'
 import { formatPrice } from '@/lib/format'
+import { useRequireSigninForPrices } from '@/lib/site-flags'
 
 /**
  * Shows a price to signed-in customers only. Everyone else (and anyone while
@@ -19,8 +20,9 @@ export function Price({
   className?: string
 }) {
   const { user, configured } = useAuth()
+  const requireSignin = useRequireSigninForPrices()
 
-  if (!configured || user) {
+  if (!configured || user || !requireSignin) {
     return <span className={className}>{formatPrice(value, currency)}</span>
   }
 

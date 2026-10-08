@@ -10,6 +10,7 @@ export const INDIAN_STATES = [
   'West Bengal',
 ]
 
-export function whatsappLink(message: string) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+export function whatsappLink(message: string, number: string = WHATSAPP_NUMBER) {
+  const digits = (number || WHATSAPP_NUMBER).replace(/[^0-9]/g, '') || WHATSAPP_NUMBER
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`
 }
