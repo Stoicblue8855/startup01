@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { Cormorant_Garamond } from 'next/font/google'
 import { useAuth } from '@/components/account/auth-context'
+import { useT } from '@/components/common/page-text-context'
 
 const dialFont = Cormorant_Garamond({ subsets: ['latin'], weight: ['600', '700'], display: 'swap' })
 
@@ -85,6 +86,7 @@ const TICKS = Array.from({ length: 60 }).map((_, i) => {
 })
 
 export function SignInRequired({ redirectTo }: { redirectTo: string }) {
+  const tx = useT()
   const href = redirectTo && redirectTo !== '/' ? `/account?redirect=${encodeURIComponent(redirectTo)}` : '/account'
   const hourRef = useRef<SVGGElement>(null)
   const minRef = useRef<SVGGElement>(null)
@@ -150,16 +152,16 @@ export function SignInRequired({ redirectTo }: { redirectTo: string }) {
 
         <div className="gate-content">
           <h1 id="gate-title" className="gate-title">
-            Sign in to continue
+            {tx('signin.title')}
           </h1>
           <p className="gate-text">
-            Sign in with Google or email to view prices, add watches to your cart and place orders.
+            {tx('signin.text')}
           </p>
           <p className="gate-text gate-text-sub">
-            New to SamayChakkra? Your account is created automatically the first time you sign in.
+            {tx('signin.subtext')}
           </p>
           <Link href={href} className="gate-btn">
-            Sign in
+            {tx('signin.button')}
           </Link>
         </div>
       </main>

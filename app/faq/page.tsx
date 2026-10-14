@@ -2,24 +2,26 @@ import type { Metadata } from 'next'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
 import { getFaqs, getPolicySections } from '@/lib/content'
+import { getText } from '@/lib/page-text-server'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'FAQ',
-  description: 'Answers on ordering, delivery, payment and our policies.',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getText()
+  return { title: 'FAQ', description: t('faq.meta.description') }
 }
 
 export default async function FaqPage() {
   const [faqs, policies] = await Promise.all([getFaqs(), getPolicySections()])
+  const t = await getText()
   return (
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-3xl px-5 md:px-10">
         <SectionHeading
           as="h1"
           eyebrow="FAQ"
-          title="Answers, before you have to ask."
-          description="If you don't find what you need here, our contact page reaches a person, not a queue."
+          title={t('faq.title')}
+          description={t('faq.description')}
         />
 
         <div className="mt-16 divide-y divide-border border-y border-border">

@@ -1,5 +1,6 @@
 'use client'
 
+import { useT } from '@/components/common/page-text-context'
 import { useState } from 'react'
 import Image from 'next/image'
 import { Heart } from 'lucide-react'
@@ -11,6 +12,7 @@ import { LuxButton } from '@/components/brand/lux-button'
 import { Reveal } from '@/components/motion/reveal'
 
 export function ProductDetail({ product }: { product: Product }) {
+  const tx = useT()
   const images = product.gallery.length > 0 ? product.gallery : [{ src: product.image, alt: product.imageAlt }]
   const [activeImage, setActiveImage] = useState(0)
   const [strap, setStrap] = useState(product.straps[0]?.name ?? 'Default')
@@ -143,13 +145,10 @@ export function ProductDetail({ product }: { product: Product }) {
 
         <details className="group mt-4 border-t border-border pt-6">
           <summary className="flex cursor-pointer items-center justify-between text-xs uppercase tracking-wide-luxe text-foreground">
-            Delivery &amp; policy
+            {tx('product.policy.title')}
             <span className="text-muted-foreground transition-transform group-open:rotate-45">+</span>
           </summary>
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-            We deliver all over India. Delivery charges depend on the distance and are added at the end of your order
-            booking. All watches are sold without warranty, and all sales are final — no returns.
-          </p>
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{tx('product.policy.body')}</p>
         </details>
       </div>
     </div>

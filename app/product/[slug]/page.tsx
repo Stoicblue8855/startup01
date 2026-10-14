@@ -5,6 +5,7 @@ import { ProductDetail } from '@/components/shop/product-detail'
 import { ProductCard } from '@/components/shop/product-card'
 import { SectionHeading } from '@/components/common/section-heading'
 import { RevealGroup, RevealItem } from '@/components/motion/reveal'
+import { getText } from '@/lib/page-text-server'
 
 export const revalidate = 60
 
@@ -37,6 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params
   const product = await getProductBySlug(slug)
   if (!product) notFound()
+  const t = await getText()
 
   const related = await getRelatedProducts(slug)
 
@@ -64,7 +66,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       {related.length > 0 && (
         <div className="border-t border-border py-20 md:py-28">
           <div className="mx-auto max-w-[1400px] px-5 md:px-10">
-            <SectionHeading eyebrow="You may also like" title="More from the house." />
+            <SectionHeading eyebrow={t('product.related.eyebrow')} title={t('product.related.title')} />
             <RevealGroup className="mt-14 grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 md:gap-x-7">
               {related.map((p) => (
                 <RevealItem key={p.id}>

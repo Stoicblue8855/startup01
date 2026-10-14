@@ -1,15 +1,17 @@
 import type { Material } from '@/lib/types'
 import { SectionHeading } from '@/components/common/section-heading'
 import { RevealGroup, RevealItem } from '@/components/motion/reveal'
+import { getText } from '@/lib/page-text-server'
 
-export function Materials({ materials }: { materials: Material[] }) {
+export async function Materials({ materials }: { materials: Material[] }) {
+  const t = await getText()
   return (
     <section className="border-t border-border py-20 md:py-28">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
-          eyebrow="Materials & Innovation"
-          title="Only what endures."
-          description="Every substance that enters the atelier is chosen for a single reason: it must still be beautiful in a hundred years."
+          eyebrow={t('home.materials.eyebrow')}
+          title={t('home.materials.title')}
+          description={t('home.materials.description')}
         />
 
         <RevealGroup className="mt-14 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">

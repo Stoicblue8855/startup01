@@ -7,9 +7,11 @@ import type { Product } from '@/lib/types'
 import { Price } from '@/components/common/price'
 import { LuxButton } from '@/components/brand/lux-button'
 import { Float } from '@/components/motion/float'
+import { useT } from '@/components/common/page-text-context'
 
 /** Scroll-driven flagship feature. The watch scales and drifts as it enters. */
 export function SignatureSpotlight({ product }: { product: Product }) {
+  const t = useT()
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -27,7 +29,7 @@ export function SignatureSpotlight({ product }: { product: Product }) {
         aria-hidden="true"
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-serif text-[24vw] leading-none text-foreground/[0.03]"
       >
-        Signature
+        {t('home.spotlight.word')}
       </motion.span>
 
       <div className="relative mx-auto grid w-full max-w-[1400px] items-center gap-10 px-5 md:px-10 lg:grid-cols-2">
@@ -46,7 +48,7 @@ export function SignatureSpotlight({ product }: { product: Product }) {
         <motion.div style={{ y: textY }} className="relative">
           <span className="inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold">
             <span className="h-px w-8 bg-gold/60" aria-hidden="true" />
-            Signature model · {product.reference}
+            {t('home.spotlight.label')} · {product.reference}
           </span>
           <h2 className="mt-6 font-serif text-5xl leading-[0.98] text-balance md:text-6xl lg:text-7xl">
             {product.name}
@@ -64,7 +66,7 @@ export function SignatureSpotlight({ product }: { product: Product }) {
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <LuxButton href={`/product/${product.slug}`} variant="solid">
-              Discover the piece
+              {t('home.spotlight.button')}
             </LuxButton>
             <span className="font-serif text-xl"><Price value={product.price} currency={product.currency} /></span>
           </div>

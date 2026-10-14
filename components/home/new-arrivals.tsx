@@ -3,15 +3,17 @@ import { ProductCard } from '@/components/shop/product-card'
 import { SectionHeading } from '@/components/common/section-heading'
 import { RevealGroup, RevealItem } from '@/components/motion/reveal'
 import { LuxButton } from '@/components/brand/lux-button'
+import { getText } from '@/lib/page-text-server'
 
-export function NewArrivals({ products }: { products: Product[] }) {
+export async function NewArrivals({ products }: { products: Product[] }) {
+  const t = await getText()
   return (
     <section className="border-t border-border py-20 md:py-28">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="The Collection" title="Pieces to be discovered." />
+          <SectionHeading eyebrow={t('home.arrivals.eyebrow')} title={t('home.arrivals.title')} />
           <LuxButton href="/shop" variant="ghost" className="shrink-0">
-            View all watches
+            {t('home.arrivals.button')}
           </LuxButton>
         </div>
 

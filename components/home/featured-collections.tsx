@@ -8,8 +8,10 @@ import type { Collection } from '@/lib/types'
 import { Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
 import { Float } from '@/components/motion/float'
+import { useT } from '@/components/common/page-text-context'
 
 export function FeaturedCollections({ collections }: { collections: Collection[] }) {
+  const t = useT()
   const scroller = useRef<HTMLDivElement>(null)
 
   function scroll(dir: 1 | -1) {
@@ -24,11 +26,11 @@ export function FeaturedCollections({ collections }: { collections: Collection[]
         <div className="flex items-end justify-between gap-6">
           <div>
             <Reveal>
-              <Eyebrow>The Collections</Eyebrow>
+              <Eyebrow>{t('home.collections.eyebrow')}</Eyebrow>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-5 max-w-xl font-serif text-4xl leading-[1.05] text-balance md:text-5xl">
-                Four disciplines, one obsession.
+                {t('home.collections.title')}
               </h2>
             </Reveal>
           </div>

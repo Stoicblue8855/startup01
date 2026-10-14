@@ -4,25 +4,27 @@ import Link from 'next/link'
 import { getJournalPosts } from '@/lib/content'
 import { SectionHeading } from '@/components/common/section-heading'
 import { RevealGroup, RevealItem } from '@/components/motion/reveal'
+import { getText } from '@/lib/page-text-server'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'The Journal',
-  description: 'Notes on craft, materials and philosophy from the atelier.',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getText()
+  return { title: t('journal.meta.title'), description: t('journal.meta.description') }
 }
 
 export default async function JournalPage() {
   const posts = await getJournalPosts()
+  const t = await getText()
 
   return (
     <div className="pt-28 md:pt-36">
       <div className="mx-auto max-w-[1400px] px-5 pb-20 md:px-10 md:pb-28">
         <SectionHeading
           as="h1"
-          eyebrow="The Journal"
-          title="Notes from the atelier."
-          description="Short, occasional writing on craft, materials and the philosophy behind what we make."
+          eyebrow={t('journal.eyebrow')}
+          title={t('journal.title')}
+          description={t('journal.description')}
         />
 
         <RevealGroup className="mt-16 grid gap-x-7 gap-y-16 md:grid-cols-3">

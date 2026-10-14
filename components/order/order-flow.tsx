@@ -13,6 +13,7 @@ import { PaymentLogos } from '@/components/order/payment-logos'
 import { getSupabaseClient } from '@/lib/supabase'
 import { formatPrice } from '@/lib/format'
 import { INDIAN_STATES, whatsappLink } from '@/lib/order'
+import { useT } from '@/components/common/page-text-context'
 import { cn } from '@/lib/utils'
 
 type Payment = 'whatsapp_online' | 'cod'
@@ -43,6 +44,7 @@ export function OrderFlow({
   codEnabled = true,
   whatsappEnabled = true,
 }: OrderFlowProps) {
+  const tx = useT()
   const { user } = useAuth()
   const { lines, cartTotal, clearCart } = useCart()
 
@@ -171,11 +173,11 @@ export function OrderFlow({
         <span className="mx-auto flex size-10 items-center justify-center rounded-full bg-gold text-background">
           <Check className="size-5" />
         </span>
-        <h1 className="mt-6 font-serif text-3xl">Your order is placed.</h1>
+        <h1 className="mt-6 font-serif text-3xl">{tx('order.placed.title')}</h1>
         <p className="mt-3 text-sm text-muted-foreground">
           Order number <span className="font-medium text-foreground">{placed.orderNumber}</span> &middot; Total{' '}
           <span className="font-medium text-foreground">{formatPrice(placed.total, placed.currency)}</span>
-          <span className="block">Delivery charges will be added at the end of your order booking.</span>
+          <span className="block">{tx('order.placed.delivery')}</span>
         </p>
         {online ? (
           <>
@@ -235,7 +237,7 @@ export function OrderFlow({
     <form onSubmit={onSubmit} noValidate className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
       <div>
         <Eyebrow>Place your order</Eyebrow>
-        <h1 className="mt-5 font-serif text-4xl leading-[1.05] md:text-5xl">Delivery details.</h1>
+        <h1 className="mt-5 font-serif text-4xl leading-[1.05] md:text-5xl">{tx('order.details.title')}</h1>
 
         <div className="mt-10 space-y-6">
           <Field label="Full name" error={errors.name}>
@@ -353,14 +355,13 @@ export function OrderFlow({
             <Price value={cartTotal} className="font-serif text-xl" />
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            Delivery charges are calculated by distance and added at the end of your order booking.
+            {tx('order.delivery.note')}
           </p>
 
           <div className="mt-6 flex gap-3 border border-gold bg-gold/5 p-4 text-sm">
             <Info className="mt-0.5 size-4 shrink-0 text-gold" />
             <p className="leading-relaxed">
-              <span className="font-medium">No warranty. No returns.</span> All sales are final. Please check your
-              selection carefully before placing your order.
+              <span className="font-medium">{tx('order.notice.strong')}</span> {tx('order.notice.body')}
             </p>
           </div>
 
@@ -371,7 +372,7 @@ export function OrderFlow({
               onChange={(e) => setAccepted(e.target.checked)}
               className="mt-1 size-4 accent-[var(--gold)]"
             />
-            <span>I understand and accept that there is no warranty and no returns on my order.</span>
+            <span>{tx('order.accept')}</span>
           </label>
           {errors.accepted && <p className="mt-2 text-xs text-destructive">{errors.accepted}</p>}
 

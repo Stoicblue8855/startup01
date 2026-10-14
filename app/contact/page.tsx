@@ -4,12 +4,13 @@ import { SectionHeading } from '@/components/common/section-heading'
 import { ContactForm } from '@/components/contact/contact-form'
 import { Reveal } from '@/components/motion/reveal'
 import { RequireSignIn } from '@/components/layout/auth-gate'
+import { getText } from '@/lib/page-text-server'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'Contact',
-  description: 'Reach the house directly — general enquiries, orders and press.',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getText()
+  return { title: 'Contact', description: t('contact.meta.description') }
 }
 
 export default async function ContactPage({
@@ -19,6 +20,7 @@ export default async function ContactPage({
 }) {
   const { intent } = await searchParams
   const settings = await getSiteSettings()
+  const t = await getText()
   const isAccount = intent === 'account'
 
   const page = (
@@ -27,11 +29,11 @@ export default async function ContactPage({
         <SectionHeading
           as="h1"
           eyebrow="Contact"
-          title={isAccount ? 'Your account, by way of a person.' : 'Reach the house directly.'}
+          title={isAccount ? t('contact.account.title') : t('contact.title')}
           description={
             isAccount
-              ? 'We keep accounts by hand, through a member of the house — no passwords to lose. Tell us what you need and we will take it from here.'
-              : 'For orders, press or simply a question — write to us directly and we will get back to you.'
+              ? t('contact.account.description')
+              : t('contact.description')
           }
         />
 
@@ -39,19 +41,19 @@ export default async function ContactPage({
           <Reveal>
             <div className="space-y-8 border-t border-border pt-8">
               <div>
-                <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Email</p>
+                <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">{t('contact.label.email')}</p>
                 <a href={`mailto:${settings.email}`} className="mt-2 block text-lg transition-colors hover:text-gold">
                   {settings.email}
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Phone</p>
+                <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">{t('contact.label.phone')}</p>
                 <a href={`tel:${settings.phone}`} className="mt-2 block text-lg transition-colors hover:text-gold">
                   {settings.phone}
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">Hours</p>
+                <p className="text-xs uppercase tracking-wide-luxe text-muted-foreground">{t('contact.label.hours')}</p>
                 <p className="mt-2 text-base text-muted-foreground">{settings.contactHours}</p>
               </div>
             </div>

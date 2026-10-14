@@ -1,5 +1,6 @@
 'use client'
 
+import { useT } from '@/components/common/page-text-context'
 import Image from 'next/image'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -66,6 +67,7 @@ function Drawer({
 }
 
 export function CartDrawer() {
+  const tx = useT()
   const { cartOpen, setCartOpen, lines, updateQuantity, removeFromCart, cartTotal } = useCart()
 
   return (
@@ -81,7 +83,7 @@ export function CartDrawer() {
               <span className="font-serif text-lg"><Price value={cartTotal} /></span>
             </div>
             <p className="text-xs text-muted-foreground">
-              No warranty. No returns. Delivery charges are added at the end of your order booking.
+              {tx('cart.note')}
             </p>
             <LuxButton
               href="/order"
@@ -98,7 +100,7 @@ export function CartDrawer() {
     >
       {lines.length === 0 ? (
         <EmptyState
-          message="Your selection is empty."
+          message={tx('cart.empty')}
           cta={
             <LuxButton href="/shop" variant="outline" magnetic={false} onClick={() => setCartOpen(false)}>
               Browse watches

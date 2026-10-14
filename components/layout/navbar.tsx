@@ -13,14 +13,17 @@ import { useCart } from '@/components/cart/cart-context'
 import { SearchOverlay } from './search-overlay'
 import { collections } from '@/lib/products'
 import { useScrollLock } from '@/lib/scroll-lock'
+import { useT } from '@/components/common/page-text-context'
 
-const navLinks = [
-  { label: 'Watches', href: '/shop' },
-  { label: 'Heritage', href: '/about' },
-  { label: 'Journal', href: '/journal' },
+const navLinkDefs = [
+  { key: 'nav.watches', href: '/shop' },
+  { key: 'nav.heritage', href: '/about' },
+  { key: 'nav.journal', href: '/journal' },
 ]
 
 export function Navbar() {
+  const tx = useT()
+  const navLinks = navLinkDefs.map((l) => ({ label: tx(l.key), href: l.href }))
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)

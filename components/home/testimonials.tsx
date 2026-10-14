@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { PressMention, Testimonial } from '@/lib/types'
+import { useT } from '@/components/common/page-text-context'
 
 export function Testimonials({
   testimonials,
@@ -11,6 +12,7 @@ export function Testimonials({
   testimonials: Testimonial[]
   press: PressMention[]
 }) {
+  const tx = useT()
   const [index, setIndex] = useState(0)
   const count = testimonials.length
 
@@ -26,7 +28,7 @@ export function Testimonials({
   return (
     <section className="border-t border-border py-20 md:py-28">
       <div className="mx-auto max-w-4xl px-5 text-center md:px-10">
-        <span className="text-xs uppercase tracking-luxe text-gold">In their words</span>
+        <span className="text-xs uppercase tracking-luxe text-gold">{tx('home.testimonials.label')}</span>
 
         <div className="relative mt-10 min-h-[220px] md:min-h-[200px]">
           <AnimatePresence mode="wait">

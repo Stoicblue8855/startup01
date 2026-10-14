@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Pause, Play } from 'lucide-react'
 import { Reveal } from '@/components/motion/reveal'
+import { useT } from '@/components/common/page-text-context'
 
 /**
  * A 30-second animated "brand film" built from still photography — six
@@ -14,7 +15,7 @@ import { Reveal } from '@/components/motion/reveal'
  */
 const SLIDE_SECONDS = 5
 
-const slides = [
+const baseSlides = [
   {
     image: '/images/journal-1.png',
     alt: 'Vintage watchmaking tools and blueprints on a dark wooden workbench',
@@ -54,6 +55,12 @@ const slides = [
 ]
 
 export function BrandFilm() {
+  const t = useT()
+  const slides = baseSlides.map((s, i) => ({
+    ...s,
+    quote: t(`home.film.${i + 1}.quote`),
+    label: t(`home.film.${i + 1}.label`),
+  }))
   const [index, setIndex] = useState(0)
   const [playing, setPlaying] = useState(true)
   const startRef = useRef<number>(Date.now())

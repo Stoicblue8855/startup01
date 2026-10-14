@@ -2,6 +2,8 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { SiteShell } from '@/components/layout/site-shell'
+import { PageTextProvider } from '@/components/common/page-text-context'
+import { getPageTextMap } from '@/lib/page-text-server'
 import './globals.css'
 
 const inter = Inter({
@@ -11,25 +13,20 @@ const inter = Inter({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getPageTextMap()
+  return {
   metadataBase: new URL('https://www.samaychakkra.com'),
   title: {
-    default: 'SamayChakkra — Time, made to be inherited.',
+    default: t['seo.title'],
     template: '%s · SamayChakkra',
   },
-  description:
-    'SamayChakkra crafts luxury automatic watches, chronographs and grand complications — precision without compromise, beauty without noise.',
+  description: t['seo.description'],
   generator: 'v0.app',
-  keywords: [
-    'SamayChakkra',
-    'luxury watches',
-    'luxury watches India',
-    'haute horlogerie',
-    'automatic watch',
-    'tourbillon',
-    'chronograph',
-    'skeleton watch',
-  ],
+  keywords: t['seo.keywords']
+    .split(',')
+    .map((k) => k.trim())
+    .filter(Boolean),
   alternates: {
     canonical: '/',
   },
@@ -43,8 +40,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'SamayChakkra — Time, made to be inherited.',
-    description: 'Luxury automatic watches, chronographs and grand complications, built to outlast their owners.',
+    title: t['seo.title'],
+    description: t['seo.share_description'],
     type: 'website',
     siteName: 'SamayChakkra',
     locale: 'en_IN',
@@ -53,10 +50,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SamayChakkra — Time, made to be inherited.',
-    description: 'Luxury automatic watches, chronographs and grand complications, built to outlast their owners.',
+    title: t['seo.title'],
+    description: t['seo.share_description'],
     images: ['/images/hero-watch.png'],
   },
+  }
 }
 
 export const viewport: Viewport = {
@@ -64,11 +62,12 @@ export const viewport: Viewport = {
   themeColor: '#f6f1e6',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const pageText = await getPageTextMap()
   return (
     <html lang="en" className={`${inter.variable} bg-background overflow-x-hidden`}>
       <body className="overflow-x-hidden antialiased">
@@ -80,8 +79,7 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'JewelryStore',
               name: 'SamayChakkra',
-              description:
-                'SamayChakkra crafts luxury automatic watches, chronographs and grand complications.',
+              description: pageText['seo.business_description'],
               url: 'https://www.samaychakkra.com',
               image: 'https://www.samaychakkra.com/images/hero-watch.png',
               priceRange: '₹₹₹₹',
@@ -94,7 +92,9 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <SiteShell>{children}</SiteShell>
+        <PageTextProvider map={pageText}>
+          <SiteShell>{children}</SiteShell>
+        </PageTextProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

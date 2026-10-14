@@ -2,30 +2,32 @@ import type { Metadata } from 'next'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
 import { getJobOpenings } from '@/lib/content'
+import { getText } from '@/lib/page-text-server'
 import { ApplicationForm } from '@/components/careers/application-form'
 
 export const revalidate = 60
 
-export const metadata: Metadata = {
-  title: 'Careers',
-  description: 'Join the atelier — open roles in watchmaking, retail and design.',
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getText()
+  return { title: 'Careers', description: t('careers.meta.description') }
 }
 
 export default async function CareersPage() {
   const openings = await getJobOpenings()
+  const t = await getText()
   return (
     <div className="pt-28 pb-24 md:pt-36 md:pb-32">
       <div className="mx-auto max-w-[1400px] px-5 md:px-10">
         <SectionHeading
           as="h1"
           eyebrow="Careers"
-          title="Join the atelier."
-          description="We hire slowly and keep people for decades. If that sounds like the wrong incentive, this may not be the place for you."
+          title={t('careers.title')}
+          description={t('careers.description')}
         />
 
         <div className="mt-16 grid gap-16 lg:grid-cols-[1fr_1.2fr]">
           <Reveal>
-            <Eyebrow>Open roles</Eyebrow>
+            <Eyebrow>{t('careers.roles.eyebrow')}</Eyebrow>
             <ul className="mt-6 divide-y divide-border border-y border-border">
               {openings.map((o) => (
                 <li key={o.role} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-5">
@@ -37,7 +39,7 @@ export default async function CareersPage() {
               ))}
             </ul>
             <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-              Don&rsquo;t see the right role? Apply anyway — the form is the same either way.
+              {t('careers.note')}
             </p>
           </Reveal>
 

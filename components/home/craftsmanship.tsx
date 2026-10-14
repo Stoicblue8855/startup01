@@ -6,31 +6,26 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
 import { LuxButton } from '@/components/brand/lux-button'
+import { useT } from '@/components/common/page-text-context'
 
-const rows = [
+const rowMeta = [
   {
-    eyebrow: 'Craftsmanship',
-    title: 'Assembled by a single pair of hands.',
-    body: 'No caliber leaves the atelier having passed through more than two watchmakers. Each bridge is bevelled, each screw head polished, each balance regulated until it is not merely finished, but beautiful.',
     image: '/images/craftsmanship.png',
     alt: 'Watchmaker placing a tiny gear into an exposed mechanical watch movement with tweezers',
     href: '/about',
-    cta: 'Inside the atelier',
     reverse: false,
   },
   {
-    eyebrow: 'Heritage',
-    title: 'A century and a half, unhurried.',
-    body: 'Since 1874 we have worked from the same mountains, to the same standard, answering to no one but the movement itself. Independence is not our strategy. It is our nature.',
     image: '/images/heritage.png',
     alt: 'Luxury watch resting on aged leather and dark marble in warm light',
     href: '/about',
-    cta: 'Our story',
     reverse: true,
   },
 ]
 
-function Row({ row }: { row: (typeof rows)[number] }) {
+type CraftRow = (typeof rowMeta)[number] & { eyebrow: string; title: string; body: string; cta: string }
+
+function Row({ row }: { row: CraftRow }) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%'])
@@ -78,6 +73,14 @@ function Row({ row }: { row: (typeof rows)[number] }) {
 }
 
 export function Craftsmanship() {
+  const t = useT()
+  const rows: CraftRow[] = rowMeta.map((m, i) => ({
+    ...m,
+    eyebrow: t(`home.craft${i + 1}.eyebrow`),
+    title: t(`home.craft${i + 1}.title`),
+    body: t(`home.craft${i + 1}.body`),
+    cta: t(`home.craft${i + 1}.cta`),
+  }))
   return (
     <section className="border-t border-border py-20 md:py-28">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-24 px-5 md:gap-32 md:px-10">
