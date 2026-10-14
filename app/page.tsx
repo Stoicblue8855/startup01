@@ -6,7 +6,7 @@ import {
 import {
   getCollections,
   getMaterials,
-  getProductBySlug,
+  getFeaturedProducts,
   getProducts,
 } from '@/lib/products'
 import { Hero } from '@/components/home/hero'
@@ -25,7 +25,7 @@ import { NewsletterSection } from '@/components/home/newsletter-section'
 export const revalidate = 60
 
 export default async function HomePage() {
-  const [hero, collections, materials, testimonials, press, products, signature] =
+  const [hero, collections, materials, testimonials, press, products, featured] =
     await Promise.all([
       getHeroContent(),
       getCollections(),
@@ -33,8 +33,12 @@ export default async function HomePage() {
       getTestimonials(),
       getPressMentions(),
       getProducts(),
-      getProductBySlug('grand-tourbillon'),
+      getFeaturedProducts(),
     ])
+
+  // The big spotlight shows the first "featured" watch; new arrivals show watches marked "is_new".
+  const signature = featured[0]
+  const newArrivals = [...products.filter((p) => p.new), ...products.filter((p) => !p.new)].slice(0, 4)
 
   return (
     <>
@@ -43,7 +47,7 @@ export default async function HomePage() {
       {signature && <SignatureSpotlight product={signature} />}
       <Craftsmanship />
       <BrandFilm />
-      <NewArrivals products={products.slice(0, 4)} />
+      <NewArrivals products={newArrivals} />
       <Materials materials={materials} />
       <Testimonials testimonials={testimonials} press={press} />
       <NewsletterSection />

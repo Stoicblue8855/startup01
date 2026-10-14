@@ -39,10 +39,11 @@ export const siteSettings: SiteSettings = {
       heading: 'Shop',
       links: [
         { label: 'All Watches', href: '/shop' },
-        { label: 'Héritage', href: '/shop?collection=heritage' },
-        { label: 'Meridian', href: '/shop?collection=meridian' },
-        { label: 'Noir', href: '/shop?collection=noir' },
-        { label: 'Atelier', href: '/shop?collection=atelier' },
+        { label: 'Ladies’ Bracelet Watches', href: '/shop?collection=ladies-bracelet' },
+        { label: 'Couple Sets', href: '/shop?collection=couple-sets' },
+        { label: 'Leather Strap Watches', href: '/shop?collection=leather-straps' },
+        { label: 'Steel & Chronograph', href: '/shop?collection=steel-watches' },
+        { label: 'Digital Sports', href: '/shop?collection=digital-sports' },
       ],
     },
     {

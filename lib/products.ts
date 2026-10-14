@@ -363,7 +363,7 @@ function mapCollection(row: any): Collection {
 export async function getCollections(): Promise<Collection[]> {
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { data } = await supabase.from('collections').select('*')
+    const { data } = await supabase.from('collections').select('*').eq('visible', true).order('sort_order', { ascending: true })
     if (data) return data.map(mapCollection)
   }
   return collections
@@ -372,8 +372,10 @@ export async function getCollections(): Promise<Collection[]> {
 export async function getCollectionBySlug(slug: string): Promise<Collection | undefined> {
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { data } = await supabase.from('collections').select('*').eq('slug', slug).single()
+    const { data, error } = await supabase.from('collections').select('*').eq('slug', slug).eq('visible', true).single()
     if (data) return mapCollection(data)
+    // The database answered but has no such (visible) collection: it does not exist.
+    if (error && error.code === 'PGRST116') return undefined
   }
   return collections.find((c) => c.slug === slug)
 }
@@ -381,7 +383,7 @@ export async function getCollectionBySlug(slug: string): Promise<Collection | un
 export async function getProducts(): Promise<Product[]> {
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { data } = await supabase.from('products').select('*')
+    const { data } = await supabase.from('products').select('*').eq('visible', true).order('sort_order', { ascending: true })
     if (data) return data.map(mapProduct)
   }
   return products
@@ -390,7 +392,7 @@ export async function getProducts(): Promise<Product[]> {
 export async function getFeaturedProducts(): Promise<Product[]> {
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { data } = await supabase.from('products').select('*').eq('featured', true)
+    const { data } = await supabase.from('products').select('*').eq('featured', true).eq('visible', true).order('sort_order', { ascending: true })
     if (data) return data.map(mapProduct)
   }
   return products.filter((p) => p.featured)
@@ -399,8 +401,10 @@ export async function getFeaturedProducts(): Promise<Product[]> {
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { data } = await supabase.from('products').select('*').eq('slug', slug).single()
+    const { data, error } = await supabase.from('products').select('*').eq('slug', slug).eq('visible', true).single()
     if (data) return mapProduct(data)
+    // The database answered but has no such (visible) watch: it does not exist.
+    if (error && error.code === 'PGRST116') return undefined
   }
   return products.find((p) => p.slug === slug)
 }
@@ -408,7 +412,7 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
 export async function getProductsByCollection(slug: string): Promise<Product[]> {
   const supabase = getSupabaseClient()
   if (supabase) {
-    const { data } = await supabase.from('products').select('*').eq('collection_slug', slug)
+    const { data } = await supabase.from('products').select('*').eq('collection_slug', slug).eq('visible', true).order('sort_order', { ascending: true })
     if (data) return data.map(mapProduct)
   }
   return products.filter((p) => p.collectionSlug === slug)

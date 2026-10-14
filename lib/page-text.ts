@@ -12,10 +12,10 @@ const d = (section: string, note: string, value: string): TextDef => ({ value, s
 export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   /* ---------- Google / SEO ---------- */
   'seo.title': d('SEO (Google)', 'Main website title shown on Google and in the browser tab', 'SamayChakkra — Time, made to be inherited.'),
-  'seo.description': d('SEO (Google)', 'Main description shown under the title on Google', 'SamayChakkra crafts luxury automatic watches, chronographs and grand complications — precision without compromise, beauty without noise.'),
-  'seo.keywords': d('SEO (Google)', 'Search keywords, separated by commas', 'SamayChakkra, luxury watches, luxury watches India, haute horlogerie, automatic watch, tourbillon, chronograph, skeleton watch'),
-  'seo.share_description': d('SEO (Google)', 'Short description shown when the site link is shared on WhatsApp, Facebook, Twitter', 'Luxury automatic watches, chronographs and grand complications, built to outlast their owners.'),
-  'seo.business_description': d('SEO (Google)', 'Business description given to Google (structured data)', 'SamayChakkra crafts luxury automatic watches, chronographs and grand complications.'),
+  'seo.description': d('SEO (Google)', 'Main description shown under the title on Google', 'SamayChakkra — watches for men and women: bracelet, leather strap, steel and digital watches, plus couple sets. Delivery all over India.'),
+  'seo.keywords': d('SEO (Google)', 'Search keywords, separated by commas', 'SamayChakkra, watches India, men’s watches, women’s watches, couple watches, leather strap watch, steel watch, digital watch, buy watches online India'),
+  'seo.share_description': d('SEO (Google)', 'Short description shown when the site link is shared on WhatsApp, Facebook, Twitter', 'Watches for men and women, couple sets and more. Delivery all over India.'),
+  'seo.business_description': d('SEO (Google)', 'Business description given to Google (structured data)', 'SamayChakkra sells watches for men and women, with delivery all over India.'),
 
   /* ---------- Menu ---------- */
   'nav.watches': d('Menu', 'Menu link: shop', 'Watches'),
@@ -87,10 +87,10 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   'sustain.materials.title': d('Sustainability page', 'Materials: heading', 'Chosen for a hundred years, not for this season.'),
 
   /* ---------- Shop and Journal pages ---------- */
-  'shop.meta.description': d('Shop page', 'Google description', 'Browse the full collection — dress watches, chronographs, divers and grand complications.'),
+  'shop.meta.description': d('Shop page', 'Google description', 'Browse the full collection — ladies’ bracelet watches, couple sets, leather strap watches, steel and chronograph-style watches, and digital sports watches.'),
   'shop.eyebrow': d('Shop page', 'Small heading at the top', 'The Collection'),
   'shop.title': d('Shop page', 'Main heading', 'Every watch we make.'),
-  'shop.description': d('Shop page', 'Paragraph under the main heading', 'Six pieces, four disciplines. Each one assembled by hand and finished to a standard we do not compromise on.'),
+  'shop.description': d('Shop page', 'Paragraph under the main heading', 'Bracelet, leather and digital watches for men and women, plus matching couple sets.'),
   'journal.meta.title': d('Journal page', 'Google / browser tab title', 'The Journal'),
   'journal.meta.description': d('Journal page', 'Google description', 'Notes on craft, materials and philosophy from the atelier.'),
   'journal.eyebrow': d('Journal page', 'Small heading at the top', 'The Journal'),
