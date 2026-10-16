@@ -48,13 +48,13 @@ export async function generateMetadata(): Promise<Metadata> {
     siteName: 'SamayChakkra',
     locale: 'en_IN',
     url: '/',
-    images: [{ url: '/images/hero-watch.png', width: 1200, height: 1200, alt: 'SamayChakkra automatic watch' }],
+    images: [{ url: '/images/hero-watch-citizen.png', width: 643, height: 1113, alt: 'Citizen steel watch with a green gear-style dial' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: t['seo.title'],
     description: t['seo.share_description'],
-    images: ['/images/hero-watch.png'],
+    images: ['/images/hero-watch-citizen.png'],
   },
   }
 }

@@ -29,7 +29,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${product.name} · SamayChakkra`,
       description: product.shortDescription,
-      images: [{ url: product.image, width: 1200, height: 1200, alt: product.imageAlt }],
+      images: [{ url: product.image, width: 1200, height: 1500, alt: product.imageAlt }],
     },
   }
 }
