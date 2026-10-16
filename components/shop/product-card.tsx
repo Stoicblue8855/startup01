@@ -98,18 +98,18 @@ export function ProductCard({ product, priority = false }: { product: Product; p
         <Heart className={cn('size-5', wishlisted && 'fill-gold text-gold')} />
       </button>
 
-      <div className="mt-4 flex items-start justify-between gap-3">
-        <div>
+      <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <div className="min-w-0 flex-1">
           <Link href={`/product/${product.slug}`}>
-            <h3 className="font-serif text-lg leading-tight transition-colors group-hover:text-gold">
+            <h3 className="line-clamp-4 break-words font-serif text-base leading-snug transition-colors group-hover:text-gold sm:text-lg sm:leading-tight">
               {product.name}
             </h3>
           </Link>
-          <p className="mt-1 text-xs uppercase tracking-wide-luxe text-muted-foreground">
+          <p className="mt-1 line-clamp-2 break-words text-[11px] uppercase tracking-wide-luxe text-muted-foreground sm:text-xs">
             {product.material}
           </p>
         </div>
-        <span className="shrink-0 pt-1 text-sm tabular-nums text-muted-foreground">
+        <span className="shrink-0 text-sm tabular-nums text-muted-foreground sm:pt-1">
           <Price value={product.price} currency={product.currency} />
         </span>
       </div>

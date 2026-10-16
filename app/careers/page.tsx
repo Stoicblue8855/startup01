@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { isShown } from '@/lib/show'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal } from '@/components/motion/reveal'
 import { getJobOpenings } from '@/lib/content'
-import { getText } from '@/lib/page-text-server'
+import { getText, getPageTextMap } from '@/lib/page-text-server'
 import { ApplicationForm } from '@/components/careers/application-form'
 
 export const revalidate = 60
@@ -13,6 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CareersPage() {
+  if (!isShown(await getPageTextMap(), 'show.page.careers')) notFound()
   const openings = await getJobOpenings()
   const t = await getText()
   return (

@@ -1,8 +1,17 @@
+'use client'
+
 import Link from 'next/link'
-import { siteSettings } from '@/lib/content'
+import { useSiteSettings } from '@/components/common/site-settings-context'
+import { useT } from '@/components/common/page-text-context'
 import { Logo } from '@/components/brand/logo'
+import { PATH_SWITCH } from '@/lib/show'
 
 export function Footer() {
+  const siteSettings = useSiteSettings()
+  const t = useT()
+  const visibleLinks = (links: { label: string; href: string }[]) =>
+    links.filter((l) => !PATH_SWITCH[l.href] || t(PATH_SWITCH[l.href]).trim().toLowerCase().startsWith('y'))
+
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-[1400px] px-5 py-16 md:px-10 md:py-24">
@@ -15,23 +24,27 @@ export function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
-            {siteSettings.footer.map((col) => (
-              <div key={col.heading}>
-                <h3 className="text-xs uppercase tracking-wide-luxe text-gold">{col.heading}</h3>
-                <ul className="mt-5 space-y-3">
-                  {col.links.map((link) => (
-                    <li key={link.label}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {siteSettings.footer.map((col) => {
+              const links = visibleLinks(col.links)
+              if (links.length === 0) return null
+              return (
+                <div key={col.heading}>
+                  <h3 className="text-xs uppercase tracking-wide-luxe text-gold">{col.heading}</h3>
+                  <ul className="mt-5 space-y-3">
+                    {links.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          href={link.href}
+                          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
           </div>
         </div>
 
@@ -50,7 +63,7 @@ export function Footer() {
         </div>
 
         <p className="mt-10 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} {siteSettings.brandName}. Manufacture Horlogère. All rights reserved.
+          © {new Date().getFullYear()} {siteSettings.brandName}. {t('footer.legal')}
         </p>
       </div>
     </footer>

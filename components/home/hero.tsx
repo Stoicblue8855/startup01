@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import type { HeroSection } from '@/lib/types'
 import { LuxButton } from '@/components/brand/lux-button'
 import { Float } from '@/components/motion/float'
+import { useT } from '@/components/common/page-text-context'
 
 const easing = [0.22, 1, 0.36, 1] as const
 
@@ -15,6 +16,7 @@ const easing = [0.22, 1, 0.36, 1] as const
  * No text-over-image overlay tricks — this is the reliable pattern.
  */
 export function Hero({ hero }: { hero: HeroSection }) {
+  const t = useT()
   const imgRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: imgRef,
@@ -86,9 +88,9 @@ export function Hero({ hero }: { hero: HeroSection }) {
             transition={{ duration: 0.7, delay: 0.9 }}
             className="mt-10 flex items-center gap-6 border-t border-border pt-6 text-xs uppercase tracking-luxe text-muted-foreground"
           >
-            <span>Est. 1874</span>
+            <span>{t('home.hero.stat1')}</span>
             <span className="h-3 w-px bg-border" aria-hidden="true" />
-            <span>Hand-finished automatic movements</span>
+            <span>{t('home.hero.stat2')}</span>
           </motion.div>
         </div>
 

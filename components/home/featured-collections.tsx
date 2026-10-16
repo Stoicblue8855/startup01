@@ -74,18 +74,17 @@ export function FeaturedCollections({ collections }: { collections: Collection[]
                     className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
                   />
                 </Float>
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-7">
-                  <p className="text-xs uppercase tracking-wide-luxe text-gold">{c.tagline}</p>
-                  <h3 className="mt-2 font-serif text-3xl">{c.name}</h3>
-                  <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                    {c.description}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-wide-luxe text-foreground">
-                    Discover
-                    <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </span>
-                </div>
+              </div>
+              <div className="pt-6">
+                <p className="text-xs uppercase tracking-wide-luxe text-gold">{c.tagline}</p>
+                <h3 className="mt-2 font-serif text-2xl leading-tight md:text-3xl">{c.name}</h3>
+                <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                  {c.description}
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-wide-luxe text-foreground">
+                  Discover
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
               </div>
             </Link>
           </Reveal>

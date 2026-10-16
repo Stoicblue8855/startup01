@@ -16,14 +16,16 @@ import { useScrollLock } from '@/lib/scroll-lock'
 import { useT } from '@/components/common/page-text-context'
 
 const navLinkDefs = [
-  { key: 'nav.watches', href: '/shop' },
-  { key: 'nav.heritage', href: '/about' },
-  { key: 'nav.journal', href: '/journal' },
+  { key: 'nav.watches', href: '/shop', flag: '' },
+  { key: 'nav.heritage', href: '/about', flag: 'show.page.about' },
+  { key: 'nav.journal', href: '/journal', flag: 'show.page.journal' },
 ]
 
 export function Navbar() {
   const tx = useT()
-  const navLinks = navLinkDefs.map((l) => ({ label: tx(l.key), href: l.href }))
+  const navLinks = navLinkDefs
+    .filter((l) => !l.flag || tx(l.flag).trim().toLowerCase().startsWith('y'))
+    .map((l) => ({ label: tx(l.key), href: l.href }))
   const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)

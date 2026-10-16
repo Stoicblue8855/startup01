@@ -19,13 +19,16 @@ import { NewArrivals } from '@/components/home/new-arrivals'
 import { Testimonials } from '@/components/home/testimonials'
 import { NewsletterSection } from '@/components/home/newsletter-section'
 
+import { getPageTextMap } from '@/lib/page-text-server'
+import { isShown } from '@/lib/show'
+
 // Re-fetch from Supabase at most once every 60 seconds instead of only at
 // build time, so edits made in the Supabase table editor show up on the
 // live site without needing a manual redeploy.
 export const revalidate = 60
 
 export default async function HomePage() {
-  const [hero, collections, materials, testimonials, press, products, featured] =
+  const [hero, collections, materials, testimonials, press, products, featured, text] =
     await Promise.all([
       getHeroContent(),
       getCollections(),
@@ -34,6 +37,7 @@ export default async function HomePage() {
       getPressMentions(),
       getProducts(),
       getFeaturedProducts(),
+      getPageTextMap(),
     ])
 
   // The big spotlight shows the first "featured" watch; new arrivals show watches marked "is_new".
@@ -45,11 +49,11 @@ export default async function HomePage() {
       <Hero hero={hero} />
       <FeaturedCollections collections={collections} />
       {signature && <SignatureSpotlight product={signature} />}
-      <Craftsmanship />
-      <BrandFilm />
+      {isShown(text, 'show.home.craftsmanship') && <Craftsmanship />}
+      {isShown(text, 'show.home.brand_film') && <BrandFilm />}
       <NewArrivals products={newArrivals} />
-      <Materials materials={materials} />
-      <Testimonials testimonials={testimonials} press={press} />
+      {isShown(text, 'show.home.materials') && <Materials materials={materials} />}
+      {isShown(text, 'show.home.testimonials') && <Testimonials testimonials={testimonials} press={press} />}
       <NewsletterSection />
     </>
   )

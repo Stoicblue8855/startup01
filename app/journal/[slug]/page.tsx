@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { isShown } from '@/lib/show'
+import { getPageTextMap } from '@/lib/page-text-server'
 import { getJournalPostBySlug, getJournalPosts } from '@/lib/content'
 import { Reveal } from '@/components/motion/reveal'
 
@@ -24,6 +26,7 @@ export async function generateMetadata({
 }
 
 export default async function JournalPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  if (!isShown(await getPageTextMap(), 'show.page.journal')) notFound()
   const { slug } = await params
   const post = await getJournalPostBySlug(slug)
   if (!post) notFound()

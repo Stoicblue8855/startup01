@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { isShown } from '@/lib/show'
 import Image from 'next/image'
 import { getMilestones } from '@/lib/content'
-import { getText } from '@/lib/page-text-server'
+import { getText, getPageTextMap } from '@/lib/page-text-server'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal, RevealGroup, RevealItem } from '@/components/motion/reveal'
 
@@ -13,6 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
+  if (!isShown(await getPageTextMap(), 'show.page.about')) notFound()
   const milestones = await getMilestones()
   const t = await getText()
 

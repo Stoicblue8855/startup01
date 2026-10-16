@@ -1,3 +1,5 @@
+import { getSiteSettings } from '@/lib/content'
+import { SiteSettingsProvider } from '@/components/common/site-settings-context'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
@@ -67,7 +69,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const pageText = await getPageTextMap()
+  const [pageText, siteSettings] = await Promise.all([getPageTextMap(), getSiteSettings()])
   return (
     <html lang="en" className={`${inter.variable} bg-background overflow-x-hidden`}>
       <body className="overflow-x-hidden antialiased">
@@ -81,7 +83,7 @@ export default async function RootLayout({
               name: 'SamayChakkra',
               description: pageText['seo.business_description'],
               url: 'https://www.samaychakkra.com',
-              image: 'https://www.samaychakkra.com/images/hero-watch.png',
+              image: 'https://www.samaychakkra.com/images/hero-watch-citizen.png',
               priceRange: '₹₹₹₹',
             }).replace(/</g, '\\u003c'),
           }}
@@ -93,7 +95,9 @@ export default async function RootLayout({
           Skip to content
         </a>
         <PageTextProvider map={pageText}>
-          <SiteShell>{children}</SiteShell>
+          <SiteSettingsProvider settings={siteSettings}>
+            <SiteShell>{children}</SiteShell>
+          </SiteSettingsProvider>
         </PageTextProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

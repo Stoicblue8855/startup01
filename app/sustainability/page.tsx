@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { isShown } from '@/lib/show'
 import { getMaterials } from '@/lib/products'
-import { getText } from '@/lib/page-text-server'
+import { getText, getPageTextMap } from '@/lib/page-text-server'
 import { SectionHeading, Eyebrow } from '@/components/common/section-heading'
 import { Reveal, RevealGroup, RevealItem } from '@/components/motion/reveal'
 
@@ -12,6 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function SustainabilityPage() {
+  if (!isShown(await getPageTextMap(), 'show.page.sustainability')) notFound()
   const materials = await getMaterials()
   const t = await getText()
   const pillars = [1, 2, 3].map((n) => ({ title: t(`sustain.pillar${n}.title`), body: t(`sustain.pillar${n}.body`) }))

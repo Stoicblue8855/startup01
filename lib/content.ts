@@ -76,17 +76,17 @@ export const siteSettings: SiteSettings = {
 
 export const heroSection: HeroSection = {
   id: 'hero-home',
-  eyebrow: 'Manufacture since 1874',
-  headline: 'The measure of a lifetime.',
+  eyebrow: 'Watches for every wrist',
+  headline: 'Find the watch that suits you.',
   subheadline:
-    'For a century and a half, SamayChakkra has built watches meant to outlast their owners. Precision without compromise. Beauty without noise.',
+    'Bracelet, leather and digital watches for men and women, plus matching couple sets. Delivery all over India.',
   ctaLabel: 'Explore the collection',
   ctaHref: '/shop',
-  secondaryCtaLabel: 'Watch the film',
-  secondaryCtaHref: '#brand-film',
+  secondaryCtaLabel: 'Contact us',
+  secondaryCtaHref: '/contact',
   video: '', // SUPABASE: cinematic MP4 URL from Supabase Storage; falls back to poster below
-  poster: '/images/hero-watch-float.png',
-  posterAlt: 'Luxury gold and steel automatic wristwatch on a deep charcoal background',
+  poster: '/images/hero-watch-citizen.png',
+  posterAlt: 'Citizen steel watch with a green gear-style dial',
 }
 
 export const testimonials: Testimonial[] = [

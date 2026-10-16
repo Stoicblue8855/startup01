@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { isShown } from '@/lib/show'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getJournalPosts } from '@/lib/content'
 import { SectionHeading } from '@/components/common/section-heading'
 import { RevealGroup, RevealItem } from '@/components/motion/reveal'
-import { getText } from '@/lib/page-text-server'
+import { getText, getPageTextMap } from '@/lib/page-text-server'
 
 export const revalidate = 60
 
@@ -14,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function JournalPage() {
+  if (!isShown(await getPageTextMap(), 'show.page.journal')) notFound()
   const posts = await getJournalPosts()
   const t = await getText()
 

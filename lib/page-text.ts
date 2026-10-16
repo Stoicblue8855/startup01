@@ -24,7 +24,7 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
 
   /* ---------- Home page ---------- */
   'home.collections.eyebrow': d('Home page', 'Small heading above the collections row', 'The Collections'),
-  'home.collections.title': d('Home page', 'Heading of the collections row', 'Four disciplines, one obsession.'),
+  'home.collections.title': d('Home page', 'Heading of the collections row', 'Shop by category.'),
   'home.spotlight.label': d('Home page', 'Small label of the big featured watch', 'Signature model'),
   'home.spotlight.word': d('Home page', 'Large faint background word behind the featured watch', 'Signature'),
   'home.spotlight.button': d('Home page', 'Button under the featured watch', 'Discover the piece'),
@@ -57,7 +57,7 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   'home.testimonials.label': d('Home page', 'Customer reviews: small heading', 'In their words'),
   'home.newsletter.eyebrow': d('Home page', 'Email signup block: small heading', 'The Correspondence'),
   'home.newsletter.title': d('Home page', 'Email signup block: heading', 'An invitation, rarely extended.'),
-  'home.newsletter.body': d('Home page', 'Email signup block: paragraph', 'Private previews, new releases and quiet stories from the atelier. We write seldom, and only when it matters.'),
+  'home.newsletter.body': d('Home page', 'Email signup block: paragraph', 'New arrivals and offers, sent to your inbox now and then.'),
 
   /* ---------- Heritage (About) page ---------- */
   'about.meta.title': d('Heritage page', 'Google / browser tab title', 'Heritage'),
@@ -102,7 +102,7 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   'contact.title': d('Contact page', 'Main heading', 'Reach the house directly.'),
   'contact.description': d('Contact page', 'Paragraph under the main heading', 'For orders, press or simply a question — write to us directly and we will get back to you.'),
   'contact.account.title': d('Contact page', 'Heading when opened from the account link', 'Your account, by way of a person.'),
-  'contact.account.description': d('Contact page', 'Paragraph when opened from the account link', 'We keep accounts by hand, through a member of the house — no passwords to lose. Tell us what you need and we will take it from here.'),
+  'contact.account.description': d('Contact page', 'Paragraph when opened from the account link', 'Having trouble signing in or placing an order? Tell us what you need and we will help.'),
   'contact.label.email': d('Contact page', 'Label above the email', 'Email'),
   'contact.label.phone': d('Contact page', 'Label above the phone number', 'Phone'),
   'contact.label.hours': d('Contact page', 'Label above the hours', 'Hours'),
@@ -139,4 +139,17 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   /* ---------- Page not found ---------- */
   'notfound.title': d('Page not found (404)', 'Heading', 'This moment has passed.'),
   'notfound.body': d('Page not found (404)', 'Paragraph', 'The page you’re looking for doesn’t exist, or has moved on — much like time itself.'),
+
+  /* ---------- Show or hide pages and sections (yes / no) ---------- */
+  'show.page.about': d('Show or hide pages and sections', 'Heritage page: type yes to show it (menu, footer and page), no to hide it', 'no'),
+  'show.page.journal': d('Show or hide pages and sections', 'Journal pages: type yes to show them (menu, footer and pages), no to hide them', 'no'),
+  'show.page.sustainability': d('Show or hide pages and sections', 'Sustainability page: type yes to show it (footer and page), no to hide it', 'no'),
+  'show.page.careers': d('Show or hide pages and sections', 'Careers page: type yes to show it (footer and page), no to hide it', 'no'),
+  'show.home.craftsmanship': d('Show or hide pages and sections', 'Home page: Craftsmanship and Heritage blocks (yes / no)', 'no'),
+  'show.home.brand_film': d('Show or hide pages and sections', 'Home page: brand film section (yes / no)', 'no'),
+  'show.home.materials': d('Show or hide pages and sections', 'Home page: Materials section (yes / no)', 'no'),
+  'show.home.testimonials': d('Show or hide pages and sections', 'Home page: customer quotes and press names (yes / no)', 'no'),
+  'footer.legal': d('Footer', 'Footer: line after the copyright and brand name', 'All rights reserved.'),
+  'home.hero.stat1': d('Home page top', 'Home top section: first small line under the buttons', 'Delivery all over India'),
+  'home.hero.stat2': d('Home page top', 'Home top section: second small line under the buttons', 'Team available 24/7'),
 }

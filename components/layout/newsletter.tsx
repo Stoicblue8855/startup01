@@ -4,19 +4,28 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { getSupabaseClient } from '@/lib/supabase'
 
 export function NewsletterForm({ className, compact = false }: { className?: string; compact?: boolean }) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'error' | 'done'>('idle')
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
     if (!valid) {
       setStatus('error')
       return
     }
-    // SUPABASE: insert into `subscribers` (email) here.
+    const supabase = getSupabaseClient()
+    if (supabase) {
+      const { error } = await supabase.from('subscribers').insert({ email: email.trim() })
+      // 23505 = this email is already subscribed, which is fine.
+      if (error && error.code !== '23505') {
+        setStatus('error')
+        return
+      }
+    }
     setStatus('done')
   }
 
