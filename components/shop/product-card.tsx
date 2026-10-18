@@ -35,20 +35,22 @@ export function ProductCard({ product, priority = false }: { product: Product; p
               sizes="(max-width: 768px) 50vw, 25vw"
               className="object-cover"
             />
-            <motion.div
-              variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
-              transition={{ duration: 0.6 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={product.hoverImage || product.image || '/placeholder.svg'}
-                alt=""
-                aria-hidden="true"
-                fill
-                sizes="(max-width: 768px) 50vw, 25vw"
-                className="object-cover"
-              />
-            </motion.div>
+            {product.hoverImage && (
+              <motion.div
+                variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
+                transition={{ duration: 0.6 }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={product.hoverImage}
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            )}
           </motion.div>
 
           {product.new && (

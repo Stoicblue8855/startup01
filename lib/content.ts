@@ -49,7 +49,7 @@ export const siteSettings: SiteSettings = {
     {
       heading: 'About',
       links: [
-        { label: 'Heritage', href: '/about' },
+        { label: 'About us', href: '/about' },
         { label: 'The Journal', href: '/journal' },
         { label: 'Sustainability', href: '/sustainability' },
         { label: 'Careers', href: '/careers' },
@@ -85,7 +85,7 @@ export const heroSection: HeroSection = {
   secondaryCtaLabel: 'Contact us',
   secondaryCtaHref: '/contact',
   video: '', // SUPABASE: cinematic MP4 URL from Supabase Storage; falls back to poster below
-  poster: '/images/hero-watch-citizen.png',
+  poster: '/images/hero-watch-citizen.webp',
   posterAlt: 'Citizen steel watch with a green gear-style dial',
 }
 
@@ -126,40 +126,27 @@ export const pressMentions: PressMention[] = [
 
 export const milestones: Milestone[] = [
   {
-    year: '1874',
-    title: 'The first workshop',
+    year: '01',
+    title: 'Choose your watch',
     description:
-      'A single bench in the Jura mountains. One watchmaker, one lathe, and a refusal to sign anything imperfect.',
+      'Browse the collection by category and pick the watch you like. Sign in with Google or email to see prices and add watches to your cart.',
   },
   {
-    year: '1911',
-    title: 'The caliber that endured',
+    year: '02',
+    title: 'Place your order',
     description:
-      'The house movement is finalised. Its architecture still beats inside the Héritage line more than a century later.',
+      'Fill in your delivery details and choose how to pay: online through our WhatsApp chat, or cash on delivery.',
   },
   {
-    year: '1948',
-    title: 'To the depths',
+    year: '03',
+    title: 'We deliver across India',
     description:
-      'The first Marine is certified for professional divers, establishing the tool-watch discipline of the Meridian line.',
+      'We send your watch to your door, anywhere in India. Delivery charges depend on the distance and are added at the end of your order booking.',
   },
   {
-    year: '1979',
-    title: 'The atelier is founded',
-    description:
-      'A dedicated workshop for grand complications opens. Every tourbillon since has been assembled by a single master.',
-  },
-  {
-    year: '2004',
-    title: 'Ceramic and shadow',
-    description:
-      'The house masters high-density ceramic, giving rise to the contemporary Noir collection.',
-  },
-  {
-    year: 'Today',
-    title: 'The next hundred years',
-    description:
-      'Still independent. Still in the mountains. Still refusing to sign anything imperfect.',
+    year: '04',
+    title: 'We are here 24/7',
+    description: 'Questions before or after you order? Our team is available 24/7 on WhatsApp.',
   },
 ]
 
@@ -312,6 +299,7 @@ export async function getMilestones(): Promise<Milestone[]> {
     const { data } = await supabase
       .from('milestones')
       .select('year, title, description')
+      .eq('visible', true)
       .order('sort_order', { ascending: true })
     if (data) return data as Milestone[]
   }

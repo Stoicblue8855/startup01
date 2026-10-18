@@ -32,8 +32,8 @@ export default async function AboutPage() {
 
       <div className="relative mt-16 aspect-[16/9] w-full overflow-hidden md:mt-24">
         <Image
-          src="/images/heritage.png"
-          alt="Luxury watch resting on aged leather and dark marble in warm light"
+          src="/images/about-banner.jpg"
+          alt="A selection of SamayChakkra watches: gold oval, brown leather, green steel, turquoise leather and black steel"
           fill
           priority
           sizes="100vw"

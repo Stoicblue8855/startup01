@@ -19,7 +19,7 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
 
   /* ---------- Menu ---------- */
   'nav.watches': d('Menu', 'Menu link: shop', 'Watches'),
-  'nav.heritage': d('Menu', 'Menu link: about page', 'Heritage'),
+  'nav.heritage': d('Menu', 'Menu link: about page', 'About us'),
   'nav.journal': d('Menu', 'Menu link: journal page', 'Journal'),
 
   /* ---------- Home page ---------- */
@@ -60,16 +60,16 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   'home.newsletter.body': d('Home page', 'Email signup block: paragraph', 'New arrivals and offers, sent to your inbox now and then.'),
 
   /* ---------- Heritage (About) page ---------- */
-  'about.meta.title': d('Heritage page', 'Google / browser tab title', 'Heritage'),
-  'about.meta.description': d('Heritage page', 'Google description', 'A century and a half of independent watchmaking, from a single bench in the Jura mountains.'),
-  'about.eyebrow': d('Heritage page', 'Small heading at the top', 'Heritage'),
-  'about.title': d('Heritage page', 'Main heading', 'A century and a half, unhurried.'),
-  'about.description': d('Heritage page', 'Paragraph under the main heading', 'Since 1874 we have worked from the same mountains, to the same standard, answering to no one but the movement itself.'),
-  'about.timeline.eyebrow': d('Heritage page', 'Timeline: small heading', 'The Timeline'),
-  'about.timeline.title': d('Heritage page', 'Timeline: heading', 'Every decade, a decision to stay small.'),
-  'about.founder.eyebrow': d('Heritage page', "Founder's note: small heading", 'Founder’s note'),
-  'about.founder.quote': d('Heritage page', "Founder's note: big quote", '“We have never confused speed with progress.”'),
-  'about.founder.body': d('Heritage page', "Founder's note: paragraph", 'Every watch that leaves this atelier carries the same conviction the first one did: that a thing worth making is worth making slowly, by hand, by people who will still be here to stand behind it in twenty years. That has never been a business strategy. It is simply how we were taught, and how we intend to teach the next generation of watchmakers who will one day sit at these same benches.'),
+  'about.meta.title': d('About page', 'Google / browser tab title', 'About us'),
+  'about.meta.description': d('About page', 'Google description', 'About SamayChakkra — a Mumbai watch brand with delivery all over India and a team available 24/7.'),
+  'about.eyebrow': d('About page', 'Small heading at the top', 'About us'),
+  'about.title': d('About page', 'Main heading', 'Time never stops. Neither do we.'),
+  'about.description': d('About page', 'Paragraph under the main heading', 'SamayChakkra is a watch brand from Mumbai, built on one simple idea: the right watch should be easy to find and easy to order. We bring together bracelet, leather, steel and digital watches for every wrist, and send them to you anywhere in India.'),
+  'about.timeline.eyebrow': d('About page', 'Timeline: small heading', 'How it works'),
+  'about.timeline.title': d('About page', 'Timeline: heading', 'From your screen to your wrist.'),
+  'about.founder.eyebrow': d('About page', "Founder's note: small heading", 'The name'),
+  'about.founder.quote': d('About page', "Founder's note: big quote", 'Samay is time. Chakkra is the wheel that keeps it turning.'),
+  'about.founder.body': d('About page', "Founder's note: paragraph", 'In Hindi, samay means time and chakra means wheel: the turning of the hour, the day and the season. A watch is the one thing that turns along with you through all of it. That is why we chose the name SamayChakkra, and why we want every watch we send out to be one you are happy to wear every day.'),
 
   /* ---------- Sustainability page ---------- */
   'sustain.meta.title': d('Sustainability page', 'Google / browser tab title', 'Sustainability'),
@@ -141,7 +141,7 @@ export const PAGE_TEXT_DEFAULTS: Record<string, TextDef> = {
   'notfound.body': d('Page not found (404)', 'Paragraph', 'The page you’re looking for doesn’t exist, or has moved on — much like time itself.'),
 
   /* ---------- Show or hide pages and sections (yes / no) ---------- */
-  'show.page.about': d('Show or hide pages and sections', 'Heritage page: type yes to show it (menu, footer and page), no to hide it', 'no'),
+  'show.page.about': d('Show or hide pages and sections', 'Heritage page: type yes to show it (menu, footer and page), no to hide it', 'yes'),
   'show.page.journal': d('Show or hide pages and sections', 'Journal pages: type yes to show them (menu, footer and pages), no to hide them', 'no'),
   'show.page.sustainability': d('Show or hide pages and sections', 'Sustainability page: type yes to show it (footer and page), no to hide it', 'no'),
   'show.page.careers': d('Show or hide pages and sections', 'Careers page: type yes to show it (footer and page), no to hide it', 'no'),

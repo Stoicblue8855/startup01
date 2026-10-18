@@ -176,3 +176,54 @@
 @keyframes pay-out{0%{opacity:0;transform:translate(0,0) scale(.5)}18%{opacity:1}30%,72%{opacity:1;transform:translate(var(--x),var(--y)) scale(1)}90%,100%{opacity:0;transform:translate(calc(var(--x)*1.15),calc(var(--y)*1.15)) scale(.95)}}
 @keyframes pay-pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}70%,100%{box-shadow:0 0 0 18px rgba(37,211,102,0)}}
 @media (prefers-reduced-motion:reduce){.pay-chip{animation:none;opacity:1;transform:translate(var(--x),var(--y)) scale(1)}.pay-badge{animation:none}}
+
+/* If JavaScript ever fails to start, the loading screen still leaves by itself. */
+@keyframes preloader-failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+.preloader-failsafe {
+  animation: preloader-failsafe 0.4s ease 8s forwards;
+}
+
+/* Loading-screen logo animation: pure CSS so it plays from the very first paint. */
+@keyframes pl-draw {
+  from { stroke-dashoffset: 1; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes pl-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pl-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pl-line {
+  from { width: 0; }
+  to { width: 96px; }
+}
+.pl-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: pl-draw var(--d, 0.9s) ease-in-out var(--delay, 0s) forwards;
+}
+.pl-fade {
+  opacity: 0;
+  animation: pl-fade 0.4s ease var(--delay, 0s) forwards;
+}
+.pl-rise {
+  opacity: 0;
+  animation: pl-rise 0.7s ease var(--delay, 0s) forwards;
+}
+.pl-line {
+  width: 0;
+  animation: pl-line 0.8s ease-in-out var(--delay, 0s) forwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pl-draw, .pl-fade, .pl-rise, .pl-line { animation-duration: 0.01s; animation-delay: 0s; }
+}
