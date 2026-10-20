@@ -12,7 +12,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getText()
-  return { title: t('journal.meta.title'), description: t('journal.meta.description') }
+  return { alternates: { canonical: '/journal' }, title: t('journal.meta.title'), description: t('journal.meta.description') }
 }
 
 export default async function JournalPage() {

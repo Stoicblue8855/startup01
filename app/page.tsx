@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import {
   getHeroContent,
   getPressMentions,
@@ -26,6 +27,10 @@ import { isShown } from '@/lib/show'
 // build time, so edits made in the Supabase table editor show up on the
 // live site without needing a manual redeploy.
 export const revalidate = 60
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 
 export default async function HomePage() {
   const [hero, collections, materials, testimonials, press, products, featured, text] =

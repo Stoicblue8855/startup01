@@ -10,7 +10,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getText()
-  return { title: t('sustain.meta.title'), description: t('sustain.meta.description') }
+  return { alternates: { canonical: '/sustainability' }, title: t('sustain.meta.title'), description: t('sustain.meta.description') }
 }
 
 export default async function SustainabilityPage() {

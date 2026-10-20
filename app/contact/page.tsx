@@ -10,7 +10,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getText()
-  return { title: 'Contact', description: t('contact.meta.description') }
+  return { alternates: { canonical: '/contact' }, title: 'Contact', description: t('contact.meta.description') }
 }
 
 export default async function ContactPage({

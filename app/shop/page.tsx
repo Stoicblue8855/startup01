@@ -8,7 +8,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getText()
-  return { title: 'Watches', description: t('shop.meta.description') }
+  return { alternates: { canonical: '/shop' }, title: 'Watches', description: t('shop.meta.description') }
 }
 
 export default async function ShopPage({

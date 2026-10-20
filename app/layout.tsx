@@ -29,9 +29,6 @@ export async function generateMetadata(): Promise<Metadata> {
     .split(',')
     .map((k) => k.trim())
     .filter(Boolean),
-  alternates: {
-    canonical: './',
-  },
   robots: {
     index: true,
     follow: true,
@@ -47,7 +44,6 @@ export async function generateMetadata(): Promise<Metadata> {
     type: 'website',
     siteName: 'SamayChakkra',
     locale: 'en_IN',
-    url: './',
     images: [{ url: '/images/hero-watch-citizen.png', width: 643, height: 1113, alt: 'Citizen steel watch with a green gear-style dial' }],
   },
   twitter: {

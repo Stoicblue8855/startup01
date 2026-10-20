@@ -8,7 +8,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getText()
-  return { title: 'FAQ', description: t('faq.meta.description') }
+  return { alternates: { canonical: '/faq' }, title: 'FAQ', description: t('faq.meta.description') }
 }
 
 export default async function FaqPage() {

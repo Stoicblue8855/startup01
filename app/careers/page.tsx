@@ -11,7 +11,7 @@ export const revalidate = 60
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getText()
-  return { title: 'Careers', description: t('careers.meta.description') }
+  return { alternates: { canonical: '/careers' }, title: 'Careers', description: t('careers.meta.description') }
 }
 
 export default async function CareersPage() {
